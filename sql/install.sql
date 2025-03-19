@@ -49,6 +49,7 @@ CREATE TABLE stage (
   CONSTRAINT equipment_used FOREIGN KEY (equipment_id) REFERENCES equipment(id)
 );
 
+
 DROP TABLE IF EXISTS equipment
 CREATE TABLE equipment (
   id BIGINT NOT NULL,
@@ -66,6 +67,7 @@ CREATE TABLE staff (
   PRIMARY KEY(id)
 );
 
+DROP TABLE IF EXISTS performance
 CREATE TABLE performance (
   id BIGINT NOT NULL AUTO_INCREMENT,
   event_id BIGINT NOT NULL,
@@ -90,3 +92,49 @@ CREATE TABLE visitor (
   age SMALLINT NOT NULL CHECK (age >= 0),
   PRIMARY KEY(id)
 );
+
+DROP TABLE IF EXISTS ticket;
+CREATE TABLE ticket (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  event_id BIGINT NOT NULL,
+  visitor_id BIGINT NOT NULL,
+  category VARCHAR(50) NOT NULL CHECK (type IN ('VIP', 'GENERAL', 'BACKSTAGE')),
+  purchase_date DATE NOT NULL,
+  price FLOAT NOT NULL,
+  payment_method VARCAHR(20) NOT NULL CHECK (type IN('DEBIT','CREDIT','BANK_DEPOSIT')),
+  EAN-13_code BIGINT NOT NULL AUTO_INCREMENT,
+  status VARCHAR(20) NOT NULL CHECK (type IN ('USED','NOT USED'),
+  PRIMARY KEY (id),
+  CONSTRAINT ticket_for_which_event FOREIGN KEY (event_id) REFERENCES event(id),
+  CONSTRAINT visitors_ticket FOREIGN KEY (visitor_id) REFERENCES visitor(id)
+  )
+
+  
+DROP TABLE IF EXISTS review;
+CREATE TABLE review (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  visitor_id BIGINT NOT NULL,
+  performance_id BIGINT NOT NULL,
+  interpretation SMALLINT NOT NULL,
+  sound_and_lighting SMALLINT NOT NULL,
+  stage_presence SMALLINT NOT NULL,
+  organization SMALLINT NOT NULL,
+  overall_impression SMALLINT NOT NULL,
+  PRIMARY KEY (id)
+  CONSTRAINT visitor_rating FOREIGN KEY (visitor_id) REFERENCES visitor(id),
+  CONSTRAINT performance_rated FOREIGN KEY (performance_id) REFERENCES performance(id),
+  CONSTRAINT interpretation_score CHECK (interpretation>=1 AND interpretation<=5),
+  CONSTRAINT sound_and_lighting_score CHECK (sound_and_lighting>=1 AND sound_and_lighting<=5),
+  CONSTRAINT stage_presence_score CHECK (stage_presence>=1 AND stage_presence<=5),
+  CONSTRAINT organization_score CHECK (organization>=1 AND organization<=5),
+  CONSTRAINT overall_impression_score CHECK (overall_impression>=1 AND overall_impression<=5)
+  )
+  
+  
+  
+
+
+
+
+
+
