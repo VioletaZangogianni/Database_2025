@@ -107,7 +107,7 @@ CREATE TABLE ticket (
   PRIMARY KEY (id),
   CONSTRAINT ticket_for_which_event FOREIGN KEY (event_id) REFERENCES event(id),
   CONSTRAINT visitors_ticket FOREIGN KEY (visitor_id) REFERENCES visitor(id)
-  )
+  );
 
   
 DROP TABLE IF EXISTS review;
@@ -120,7 +120,7 @@ CREATE TABLE review (
   stage_presence SMALLINT NOT NULL,
   organization SMALLINT NOT NULL,
   overall_impression SMALLINT NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
   CONSTRAINT visitor_rating FOREIGN KEY (visitor_id) REFERENCES visitor(id),
   CONSTRAINT performance_rated FOREIGN KEY (performance_id) REFERENCES performance(id),
   CONSTRAINT interpretation_score CHECK (interpretation>=1 AND interpretation<=5),
@@ -128,13 +128,46 @@ CREATE TABLE review (
   CONSTRAINT stage_presence_score CHECK (stage_presence>=1 AND stage_presence<=5),
   CONSTRAINT organization_score CHECK (organization>=1 AND organization<=5),
   CONSTRAINT overall_impression_score CHECK (overall_impression>=1 AND overall_impression<=5)
-  )
-  
-  
+  );
   
 
+DROP TABLE IF EXISTS performer;
+CREATE TABLE performer(
+  name VARCHAR(20) NOT NULL,
+  type VARCHAR(1) NOT NULL,
+  PRIMARY KEY (name),
+  CONSTRAINT performer_type CHECK (type IN ('A', 'B')) --A for artist, B for band
+);
 
+DROP TABLE IF EXISTS artist;
+CREATE TABLE artist(
+  name VARCHAR(50) NOT NULL,
+  nickname VARCHAR(20) NOT NULL,
+  birthdate DATE NOT NULL,
+  genre_id BIGINT NOT NULL, --δεν ξέρω τι κάνουμε εδώ
+  subgenre_id BIGINT NOT NULL,
+  website VARCHAR(50) NOT NULL,
+  instagram VARCHAR(50) NOT NULL,
+  PRIMARY KEY (name),
+  CONSTRAINT perf FOREIGN KEY (nickname) REFERENCES performer(name)
+);
 
+DROP TABLE IF EXISTS band;
+CREATE TABLE band(
+  name VARCHAR(50) NOT NULL,
+  formation_date DATE NOT NULL,
+  website VARCHAR(50) NOT NULL,
+  instagram VARCHAR(50) NOT NULL,
+  PRIMARY KEY (name),
+  CONSTRAINT perf FOREIGN KEY (name) REFERENCES performer(name)
+);
 
-
-
+DROP TABLE IF EXISTS members
+CREATE TABLE members( --είναι many-to-many μεταξύ καλλιτεχνών και συγκροτημάτων
+  name VARCHAR(50) NOT NULL,
+  bandname VARCHAR(50) NOT NULL,
+  position VARCHAR(20) NOT NULL, --άμα θέλουμε, πχ τραγουδιστής, κιθαρίστας, κλπ
+  PRIMARY KEY (nick, bandname), --σε περίπτωση που βάλουμε κανέναν σε πολλές μπάντες
+  CONSTRAINT band_exists FOREIGN KEY (bandname) REFERENCES band(name),
+  CONSTRAINT dude_exists FOREIGN KEY (name) REFERENCES artist(name)
+);
