@@ -133,41 +133,46 @@ CREATE TABLE review (
 
 DROP TABLE IF EXISTS performer;
 CREATE TABLE performer(
+  id BIGINT NOT NULL AUTO_INCREMENT,
   name VARCHAR(20) NOT NULL,
   type VARCHAR(1) NOT NULL,
-  PRIMARY KEY (name),
+  PRIMARY KEY (id),
   CONSTRAINT performer_type CHECK (type IN ('A', 'B')) --A for artist, B for band
 );
 
 DROP TABLE IF EXISTS artist;
 CREATE TABLE artist(
+  id BIGINT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
-  nickname VARCHAR(20) NOT NULL,
+  nickname VARCHAR(20),
   birthdate DATE NOT NULL,
   genre_id BIGINT NOT NULL, --δεν ξέρω τι κάνουμε εδώ
-  subgenre_id BIGINT NOT NULL,
-  website VARCHAR(50) NOT NULL,
-  instagram VARCHAR(50) NOT NULL,
-  PRIMARY KEY (name),
-  CONSTRAINT perf FOREIGN KEY (nickname) REFERENCES performer(name)
+  subgenre_id BIGINT,
+  website VARCHAR(50),
+  instagram VARCHAR(50),
+  artist_performer_id BIGINT NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT perf FOREIGN KEY (artist_performer_id) REFERENCES performer(id)
 );
 
 DROP TABLE IF EXISTS band;
 CREATE TABLE band(
+  id  BIGINT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50) NOT NULL,
   formation_date DATE NOT NULL,
   website VARCHAR(50) NOT NULL,
   instagram VARCHAR(50) NOT NULL,
-  PRIMARY KEY (name),
-  CONSTRAINT perf FOREIGN KEY (name) REFERENCES performer(name)
+  band_performer_id BIGINT NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT perf FOREIGN KEY (band_performer_id) REFERENCES performer(id)
 );
 
 DROP TABLE IF EXISTS members
 CREATE TABLE members( --είναι many-to-many μεταξύ καλλιτεχνών και συγκροτημάτων
-  name VARCHAR(50) NOT NULL,
-  bandname VARCHAR(50) NOT NULL,
+  artist_id BIGINT NOT NULL,
+  band_id BIGINT NOT NULL,
   position VARCHAR(20) NOT NULL, --άμα θέλουμε, πχ τραγουδιστής, κιθαρίστας, κλπ
-  PRIMARY KEY (nick, bandname), --σε περίπτωση που βάλουμε κανέναν σε πολλές μπάντες
-  CONSTRAINT band_exists FOREIGN KEY (bandname) REFERENCES band(name),
-  CONSTRAINT dude_exists FOREIGN KEY (name) REFERENCES artist(name)
+  PRIMARY KEY (artist_id, band_id), --σε περίπτωση που βάλουμε κανέναν σε πολλές μπάντες
+  CONSTRAINT band_exists FOREIGN KEY (band_id) REFERENCES band(id),
+  CONSTRAINT dude_exists FOREIGN KEY (artist_id) REFERENCES artist(id)
 );
