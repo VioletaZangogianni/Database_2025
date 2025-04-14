@@ -114,7 +114,7 @@ CREATE TABLE staff (
 DROP TABLE IF EXISTS performer;
 CREATE TABLE performer(
   performer_id BIGINT NOT NULL AUTO_INCREMENT,
-  performer_name VARCHAR(20) NOT NULL UNIQUE,
+  performer_name VARCHAR(40) NOT NULL UNIQUE,
   performer_type VARCHAR(1) NOT NULL,
   PRIMARY KEY (performer_id),
   CONSTRAINT performer_type CHECK (performer_type IN ('A', 'B')) #A for artist, B for band
