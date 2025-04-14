@@ -57,14 +57,40 @@ CREATE TABLE equipment (
   category VARCHAR(20) CHECK (category in ('Microphone')) 
 );
 
+DROP TABLE IF EXISTS staff_levels;
+CREATE TABLE staff_levels (
+	id BIGINT NOT NULL,
+	experience_desc VARCHAR(20),
+	PRIMARY KEY(id)
+);
+
+INSERT INTO staff_levels VALUES (1, "Trainee");
+INSERT INTO staff_levels VALUES (2, "Beginner");
+INSERT INTO staff_levels VALUES (3, "Intermediate");
+INSERT INTO staff_levels VALUES (4, "Experienced");
+INSERT INTO staff_levels VALUES (5, "Highly Experienced");
+
+DROP TABLE IF EXISTS role_staff;
+CREATE TABLE role_staff (
+	id BIGINT NOT NULL,
+    role_desc VARCHAR(20),
+    PRIMARY KEY(id)
+);
+
+INSERT INTO role_staff VALUES (1,'Technical');
+INSERT INTO role_staff VALUES (2, 'Security');
+INSERT INTO role_staff VALUES (3, 'Support');
+
 DROP TABLE IF EXISTS staff;
 CREATE TABLE staff (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  name VARCHAR(50) NOT NULL,
+  staff_id BIGINT NOT NULL AUTO_INCREMENT,
+  staff_name VARCHAR(50) NOT NULL,
   age SMALLINT NOT NULL,
-  role VARCHAR(20) CHECK (role IN ('Technical', 'Security', 'Support')),
-  experience_level VARCHAR(20) CHECK (experience_level IN ('Trainee', 'Beginner', 'Intermediate', 'Experienced', 'Highly Experienced')),
-  PRIMARY KEY(id)
+  staff_role BIGINT,
+  experience_level BIGINT,
+  PRIMARY KEY(staff_id),
+  CONSTRAINT lvl FOREIGN KEY (experience_level) REFERENCES staff_levels(id),
+  CONSTRAINT staffrole FOREIGN KEY (staff_role) REFERENCES role_staff(id)
 );
 
 DROP TABLE IF EXISTS performance;
