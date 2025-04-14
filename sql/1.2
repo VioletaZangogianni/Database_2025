@@ -26,14 +26,20 @@ CREATE TABLE festival (
   #PRIMARY KEY(year) 
 );
 
-DROP TABLE IF EXISTS equipment;
-CREATE TABLE equipment (
-  id BIGINT NOT NULL,
-  product VARCHAR(20) NOT NULL,
-  category VARCHAR(20) CHECK (category in ('Microphone')),
-  PRIMARY KEY(id)
+DROP TABLE IF EXISTS equipmentCategory;
+CREATE TABLE equipmentCategory (
+    category VARCHAR(20) NOT NULL,
+    PRIMARY KEY(category)
 );
 
+DROP TABLE IF EXISTS equipment;
+CREATE TABLE equipment (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  product VARCHAR(20) NOT NULL,
+  category VARCHAR(20) NOT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT equipment_category FOREIGN KEY (category) REFERENCES equipmentCategory(category)
+);
 
 DROP TABLE IF EXISTS stage;
 CREATE TABLE stage (
@@ -196,12 +202,18 @@ CREATE TABLE visitor (
   PRIMARY KEY(id)
 );
 
+DROP TABLE IF EXISTS ticketType;
+CREATE TABLE ticketType (
+	ticket_type VARCHAR(20) NOT NULL,
+    PRIMARY KEY(ticket_type)
+);
+
 DROP TABLE IF EXISTS ticket;
 CREATE TABLE ticket (
   id BIGINT NOT NULL AUTO_INCREMENT,
   event_id BIGINT NOT NULL,
   visitor_id BIGINT NOT NULL,
-  category VARCHAR(50) NOT NULL CHECK (category IN ('VIP', 'GENERAL', 'BACKSTAGE')),
+  category VARCHAR(20) NOT NULL,
   purchase_date DATE NOT NULL,
   price FLOAT NOT NULL,
   payment_method VARCHAR(20) NOT NULL CHECK (payment_method IN('DEBIT','CREDIT','BANK_DEPOSIT')),
@@ -209,7 +221,8 @@ CREATE TABLE ticket (
   ticket_status VARCHAR(20) NOT NULL CHECK (ticket_status IN ('USED','NOT USED')),
   PRIMARY KEY (id),
   CONSTRAINT ticket_for_which_event FOREIGN KEY (event_id) REFERENCES music_event(music_event_id),
-  CONSTRAINT visitors_ticket FOREIGN KEY (visitor_id) REFERENCES visitor(id)
+  CONSTRAINT visitors_ticket FOREIGN KEY (visitor_id) REFERENCES visitor(id),
+  CONSTRAINT ticket_type FOREIGN KEY (category) REFERENCES ticketType(ticket_type)
   );
 
   
