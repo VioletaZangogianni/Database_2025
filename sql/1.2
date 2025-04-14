@@ -88,8 +88,8 @@ CREATE TABLE staff (
   staff_id BIGINT NOT NULL AUTO_INCREMENT,
   staff_name VARCHAR(50) NOT NULL,
   age SMALLINT NOT NULL,
-  staff_role BIGINT,
-  experience_level BIGINT,
+  staff_role BIGINT NOT NULL,
+  experience_level BIGINT NOT NULL,
   PRIMARY KEY(staff_id),
   CONSTRAINT lvl FOREIGN KEY (experience_level) REFERENCES staff_levels(id),
   CONSTRAINT staffrole FOREIGN KEY (staff_role) REFERENCES role_staff(id)
@@ -141,12 +141,23 @@ CREATE TABLE members(
   CONSTRAINT dude_exists FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
 );
 
+DROP TABLE IF EXISTS type_performance;
+CREATE TABLE type_performance (
+	id BIGINT NOT NULL,
+    performance_desc VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id)
+);
+ 
+ INSERT INTO type_performance VALUE (1, 'Warm-up');
+ INSERT INTO type_performance VALUE (2,'Headline');
+ INSERT INTO type_performance VALUE (3,'Special Guest');
+    
 DROP TABLE IF EXISTS performance;
 CREATE TABLE performance (
   performance_id BIGINT NOT NULL AUTO_INCREMENT,
   music_event_id BIGINT NOT NULL,
   artist_id BIGINT NOT NULL,
-  performance_type VARCHAR(20) CHECK (performance_type IN ('Warm-up', 'Headline', 'Special Guest')),
+  performance_type BIGINT NOT NULL,
   start_time TIME NOT NULL,
   duration SMALLINT NOT NULL,
   break SMALLINT CHECK (break BETWEEN 5 AND 30),
@@ -154,7 +165,7 @@ CREATE TABLE performance (
   PRIMARY KEY(performance_id),
   CONSTRAINT event_performed FOREIGN KEY (music_event_id) REFERENCES music_event(music_event_id),
   CONSTRAINT artist_performed FOREIGN KEY (artist_id) REFERENCES performer(performer_id),
-  CONSTRAINT staff_assigned FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+  CONSTRAINT perf_type FOREIGN KEY (performance_type) REFERENCES type_performance(id)
 );
 
 DROP TABLE IF EXISTS visitor;
