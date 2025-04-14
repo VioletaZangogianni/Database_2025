@@ -42,8 +42,17 @@ CREATE TABLE stage (
   stage_description VARCHAR(20) NOT NULL,
   capacity SMALLINT NOT NULL,
   equipment_id BIGINT NOT NULL,
-  PRIMARY KEY(id),
-  CONSTRAINT equipment_used FOREIGN KEY (equipment_id) REFERENCES equipment(id)
+  PRIMARY KEY(id)
+);
+
+DROP TABLE IF EXISTS equipmentUsed;
+CREATE TABLE equipmentUsed (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+    equipmentId BIGINT NOT NULL,
+    stageId BIGINT NOT NULL,
+    PRIMARY KEY(id),
+    CONSTRAINT equipment_assigned FOREIGN KEY (equipmentId) REFERENCES equipment(id),
+    CONSTRAINT stage_assigned FOREIGN KEY (stageId) REFERENCES stage(id)
 );
 
 DROP TABLE IF EXISTS music_event;
@@ -168,6 +177,16 @@ CREATE TABLE performance (
   CONSTRAINT perf_type FOREIGN KEY (performance_type) REFERENCES type_performance(id)
 );
 
+DROP TABLE IF EXISTS worksIn;
+CREATE TABLE worksIn (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+    staffId BIGINT NOT NULL,
+    performanceId BIGINT NOT NULL,
+    PRIMARY KEY(id),
+    CONSTRAINT staff_assigned FOREIGN KEY (staffId) REFERENCES staff(staff_id),
+    CONSTRAINT performance_assigned FOREIGN KEY (performanceId) REFERENCES performance(performance_id)
+);
+
 DROP TABLE IF EXISTS visitor;
 CREATE TABLE visitor (
   id BIGINT NOT NULL AUTO_INCREMENT,
@@ -214,5 +233,3 @@ CREATE TABLE review (
   CONSTRAINT organization_score CHECK (review_organization>=1 AND review_organization<=5),
   CONSTRAINT overall_impression_score CHECK (overall_impression>=1 AND overall_impression<=5)
   );
-  
-
