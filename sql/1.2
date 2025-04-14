@@ -140,8 +140,8 @@ CREATE TABLE artist(
   birthdate DATE NOT NULL,
   genre VARCHAR(20) NOT NULL,
   subgenre VARCHAR(30) NOT NULL,
-  website VARCHAR(50) UNIQUE,
-  instagram VARCHAR(50) UNIQUE,
+  artist_website VARCHAR(50) UNIQUE,
+  artist_instagram VARCHAR(50) UNIQUE,
   artist_performer_id BIGINT NOT NULL,
   PRIMARY KEY (artist_id),
   CONSTRAINT performance_genre FOREIGN KEY (genre) REFERENCES genre(genre_desc),
@@ -154,9 +154,11 @@ CREATE TABLE band(
   band_id  BIGINT NOT NULL AUTO_INCREMENT,
   band_name VARCHAR(50) NOT NULL UNIQUE,
   formation_date DATE NOT NULL,
-  website VARCHAR(50) NOT NULL UNIQUE,
-  instagram VARCHAR(50) NOT NULL UNIQUE,
-  PRIMARY KEY (band_id)
+  band_website VARCHAR(50) NOT NULL UNIQUE,
+  band_instagram VARCHAR(50) NOT NULL UNIQUE,
+  band_performer_id BIGINT NOT NULL,
+  PRIMARY KEY (band_id),
+  CONSTRAINT perfband FOREIGN KEY (band_performer_id) REFERENCES performer(performer_id)
 );
 
 DROP TABLE IF EXISTS members;
@@ -184,7 +186,7 @@ DROP TABLE IF EXISTS performance;
 CREATE TABLE performance (
   performance_id BIGINT NOT NULL AUTO_INCREMENT,
   music_event_id BIGINT NOT NULL,
-  artist_id BIGINT NOT NULL,
+  performer_id BIGINT NOT NULL,
   performance_type BIGINT NOT NULL,
   start_time TIME NOT NULL,
   duration SMALLINT NOT NULL,
@@ -192,7 +194,7 @@ CREATE TABLE performance (
   staff_id BIGINT,
   PRIMARY KEY(performance_id),
   CONSTRAINT event_performed FOREIGN KEY (music_event_id) REFERENCES music_event(music_event_id),
-  CONSTRAINT artist_performed FOREIGN KEY (artist_id) REFERENCES performer(performer_id),
+  CONSTRAINT artist_performed FOREIGN KEY (performer_id) REFERENCES performer(performer_id),
   CONSTRAINT perf_type FOREIGN KEY (performance_type) REFERENCES type_performance(id)
 );
 
