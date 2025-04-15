@@ -169,6 +169,15 @@ CREATE TABLE band(
   CONSTRAINT perfband FOREIGN KEY (band_performer_id) REFERENCES performer(performer_id)
 );
 
+DROP TABLE IF EXISTS band2genre;
+CREATE TABLE band2genre(
+	band_id BIGINT NOT NULL AUTO_INCREMENT,
+ 	genre_id BIGINT NOT NULL,
+  	PRIMARY KEY (band_id, genre_id),
+	CONSTRAINT bgenre_exists FOREIGN KEY (genre_id) REFERENCES genre(genre_id),
+	CONSTRAINT band_exists FOREIGN KEY (band_id) REFERENCES band(band_id)
+ );	
+
 DROP TABLE IF EXISTS members;
 CREATE TABLE members(
   artist_id BIGINT NOT NULL,
