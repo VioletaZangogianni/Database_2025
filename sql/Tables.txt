@@ -14,7 +14,7 @@ genre done
 subgenre done
 artist done
 art2genre
-band
+band done
 band2genre
 members
 type_performance done
