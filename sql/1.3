@@ -141,8 +141,8 @@ CREATE TABLE artist(
   artist_name VARCHAR(50) NOT NULL UNIQUE,
   nickname VARCHAR(20),
   birthdate DATE NOT NULL,
-  artist_website VARCHAR(50) UNIQUE,
-  artist_instagram VARCHAR(50) UNIQUE,
+  artist_website VARCHAR(50),
+  artist_instagram VARCHAR(50),
   artist_performer_id BIGINT NOT NULL,
   PRIMARY KEY (artist_id),
   CONSTRAINT perfartist FOREIGN KEY (artist_performer_id) REFERENCES performer(performer_id)
