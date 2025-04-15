@@ -208,8 +208,8 @@ CREATE TABLE performance (
 
 DROP TABLE IF EXISTS worksIn;
 CREATE TABLE worksIn (
-    staffId BIGINT NOT NULL,
-    performanceId BIGINT NOT NULL,
+    staff_id BIGINT NOT NULL,
+    performance_id BIGINT NOT NULL,
     PRIMARY KEY(staff_id, performance_id),
     CONSTRAINT staff_assigned FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
     CONSTRAINT performance_assigned FOREIGN KEY (performance_id) REFERENCES performance(performance_id)
