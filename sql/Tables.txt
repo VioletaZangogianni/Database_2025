@@ -16,7 +16,7 @@ artist done
 art2genre
 band done
 band2genre
-members
+members done
 type_performance done
 performance
 worksIn
