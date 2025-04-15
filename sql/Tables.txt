@@ -1,0 +1,22 @@
+Tables
+location done
+festival done
+equipmentCategory done
+equipment done
+stage done
+equipmentUsed
+music_event done
+staff_levels done
+role_staff done
+staff done
+performer done
+genre done
+subgenre done
+artist done
+art2genre
+band
+band2genre
+members
+type_performance done
+performance
+worksIn
