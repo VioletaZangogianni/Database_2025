@@ -1,5 +1,5 @@
-SELECT ID, AVG(experience_level) AS average_experience_level FROM 
-(SELECT DISTINCT festival.festival_id AS ID, staff.staff_id AS yolo, staff.experience_level FROM festival natural JOIN music_event NATURAL JOIN performance natural join staff) AS GOTOHELL
-GROUP BY ID
+WITH fest_staff (fest_year, staff_id, experience_level) AS (SELECT DISTINCT festival_fest_year, staff_id, lvl_id FROM festival NATURAL JOIN music_event NATURAL JOIN performance NATURAL JOIN worksIn NATURAL JOIN staff
+SELECT fest_year, AVG(experience_level) AS average_experience_level FROM fest_staff
+GROUP BY fest_year
 ORDER BY average_experience_level ASC
 LIMIT 1;
