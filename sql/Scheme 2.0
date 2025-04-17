@@ -141,12 +141,21 @@ CREATE TABLE artist(
   subgenre_desc VARCHAR(30) NOT NULL,
   artist_website VARCHAR(50) UNIQUE,
   artist_instagram VARCHAR(50) UNIQUE,
-  performer_id BIGINT NOT NULL,
+  artist_performer_id BIGINT NOT NULL,
   PRIMARY KEY (artist_id),
   CONSTRAINT performance_genre FOREIGN KEY (genre_desc) REFERENCES genre(genre_desc),
   CONSTRAINT performance_subgenre FOREIGN KEY (subgenre_desc) REFERENCES subgenre(subgenre_desc),
-  CONSTRAINT perfartist FOREIGN KEY (performer_id) REFERENCES performer(performer_id)
+  CONSTRAINT perfartist FOREIGN KEY (artist_performer_id) REFERENCES performer(performer_id)
 );
+
+DROP TABLE IF EXISTS art2genre;
+CREATE TABLE art2genre(
+	artist_id BIGINT NOT NULL AUTO_INCREMENT,
+ 	genre_id BIGINT NOT NULL,
+  	PRIMARY KEY (artist_id, genre_id),
+	CONSTRAINT genre_exists FOREIGN KEY (genre_id) REFERENCES genre(genre_id),
+	CONSTRAINT art_exists FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
+ );	
 
 DROP TABLE IF EXISTS band;
 CREATE TABLE band(
@@ -155,10 +164,19 @@ CREATE TABLE band(
   band_formation_date DATE NOT NULL,
   band_website VARCHAR(50) NOT NULL UNIQUE,
   band_instagram VARCHAR(50) NOT NULL UNIQUE,
-  performer_id BIGINT NOT NULL,
+  band_performer_id BIGINT NOT NULL,
   PRIMARY KEY (band_id),
-  CONSTRAINT perfband FOREIGN KEY (performer_id) REFERENCES performer(performer_id)
+  CONSTRAINT perfband FOREIGN KEY (band_performer_id) REFERENCES performer(performer_id)
 );
+
+DROP TABLE IF EXISTS band2genre;
+CREATE TABLE band2genre(
+	band_id BIGINT NOT NULL AUTO_INCREMENT,
+ 	genre_id BIGINT NOT NULL,
+  	PRIMARY KEY (band_id, genre_id),
+	CONSTRAINT bgenre_exists FOREIGN KEY (genre_id) REFERENCES genre(genre_id),
+	CONSTRAINT band_exists2 FOREIGN KEY (band_id) REFERENCES band(band_id)
+ );	
 
 DROP TABLE IF EXISTS members;
 CREATE TABLE members(
