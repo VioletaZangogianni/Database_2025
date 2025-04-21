@@ -18,8 +18,8 @@ band done
 band2genre
 members done
 type_performance done
-performance
-worksIn
+performance done
+worksIn done
 visitor
 ticketType done
 ticket
