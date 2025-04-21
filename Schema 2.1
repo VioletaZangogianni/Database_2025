@@ -298,7 +298,7 @@ CREATE TABLE buyer (
 	visitor_id BIGINT NOT NULL,
     music_event_id BIGINT NOT NULL,
     ticketType_type VARCHAR(20) NOT NULL,
-    buyer_timeInserted TIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    buyer_timeInserted TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     buyer_sold CHAR DEFAULT 'N' CHECK (buyer_sold IN ('Y', 'N')),
     PRIMARY KEY (visitor_id, music_event_id),
     CONSTRAINT buyer FOREIGN KEY (visitor_id) REFERENCES visitor(visitor_id),
