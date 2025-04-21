@@ -1,0 +1,312 @@
+DROP SCHEMA IF EXISTS music_festival_ntua; 
+CREATE SCHEMA music_festival_ntua;
+USE music_festival_ntua;
+
+DROP TABLE IF EXISTS location;
+CREATE TABLE location (
+  location_id BIGINT NOT NULL AUTO_INCREMENT,
+  location_address VARCHAR(20) NOT NULL UNIQUE,
+  location_coordinates VARCHAR(20) NOT NULL UNIQUE, 
+  location_city VARCHAR(20) NOT NULL,
+  location_country VARCHAR(20) NOT NULL,
+  location_continent VARCHAR(20) CHECK (location_continent IN ('Europe', 'America', 'Asia', 'Africa', 'Oceania', 'Arctica', 'Antarctica')), 
+  PRIMARY KEY(location_id)
+);
+
+DROP TABLE IF EXISTS festival;
+CREATE TABLE festival (
+  festival_id BIGINT NOT NULL AUTO_INCREMENT,
+  festival_name VARCHAR(20) NOT NULL,
+  festival_fest_year YEAR NOT NULL UNIQUE,
+  location_id BIGINT NOT NULL UNIQUE,
+  festival_start_date DATE NOT NUlL UNIQUE,
+  festival_end_date DATE NOT NULL UNIQUE,
+  PRIMARY KEY(festival_id),
+  CONSTRAINT where_fest FOREIGN KEY (location_id) REFERENCES location(location_id),
+  CONSTRAINT festival_date CHECK (festival_start_date < festival_end_date),
+  CONSTRAINT festival_year CHECK (YEAR(festival_start_date) = festival_fest_year AND YEAR(festival_end_date) = festival_fest_year)
+);
+
+DROP TABLE IF EXISTS equipmentCategory;
+CREATE TABLE equipmentCategory (
+    equipmentCategory_category VARCHAR(20) NOT NULL UNIQUE,
+    PRIMARY KEY(equipmentCategory_category)
+);
+
+DROP TABLE IF EXISTS equipment;
+CREATE TABLE equipment (
+  equipment_id BIGINT NOT NULL AUTO_INCREMENT,
+  equipment_product VARCHAR(20) NOT NULL UNIQUE,
+  equipmentCategory_category VARCHAR(20) NOT NULL,
+  PRIMARY KEY(equipment_id),
+  CONSTRAINT equipment_category FOREIGN KEY (equipmentCategory_category) REFERENCES equipmentCategory(equipmentCategory_category)
+);
+
+DROP TABLE IF EXISTS stage;
+CREATE TABLE stage (
+  stage_id BIGINT NOT NULL AUTO_INCREMENT,
+  stage_name VARCHAR(40) NOT NULL,
+  stage_description VARCHAR(30) NOT NULL,
+  stage_capacity BIGINT NOT NULL,
+  PRIMARY KEY(stage_id)
+);
+
+DROP TABLE IF EXISTS equipmentUsed;
+CREATE TABLE equipmentUsed (
+	equipmentUsed_id BIGINT NOT NULL AUTO_INCREMENT,
+    equipment_id BIGINT NOT NULL,
+    stage_id BIGINT NOT NULL,
+    PRIMARY KEY(equipmentUsed_id),
+    CONSTRAINT equipment_assigned FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id),
+    CONSTRAINT stage_assigned FOREIGN KEY (stage_id) REFERENCES stage(stage_id)
+);
+
+DROP TABLE IF EXISTS music_event;
+CREATE TABLE music_event (
+  music_event_id BIGINT NOT NULL AUTO_INCREMENT,
+  festival_id BIGINT NOT NULL,
+  stage_id BIGINT NOT NULL,
+  music_event_date DATE NOT NULL,
+  music_event_time TIME NOT NULL,
+  PRIMARY KEY(music_event_id),
+  CONSTRAINT part_of_fest FOREIGN KEY (festival_id) REFERENCES festival(festival_id),
+  CONSTRAINT takes_place_in FOREIGN KEY (stage_id) REFERENCES stage(stage_id)
+);
+
+DROP TABLE IF EXISTS staff_levels;
+CREATE TABLE staff_levels (
+	staff_levels_id BIGINT NOT NULL,
+	staff_levels_experience_desc VARCHAR(20) UNIQUE,
+	PRIMARY KEY(staff_levels_id)
+);
+
+INSERT INTO staff_levels VALUES (1, "Trainee");
+INSERT INTO staff_levels VALUES (2, "Beginner");
+INSERT INTO staff_levels VALUES (3, "Intermediate");
+INSERT INTO staff_levels VALUES (4, "Experienced");
+INSERT INTO staff_levels VALUES (5, "Highly Experienced");
+
+DROP TABLE IF EXISTS role_staff;
+CREATE TABLE role_staff (
+	role_staff_id BIGINT NOT NULL,
+    role_staff_desc VARCHAR(20) UNIQUE,
+    PRIMARY KEY(role_staff_id)
+);
+
+INSERT INTO role_staff VALUES (1,'Technical');
+INSERT INTO role_staff VALUES (2, 'Security');
+INSERT INTO role_staff VALUES (3, 'Support');
+
+DROP TABLE IF EXISTS staff;
+CREATE TABLE staff (
+  staff_id BIGINT NOT NULL AUTO_INCREMENT,
+  staff_name VARCHAR(50) NOT NULL,
+  staff_age SMALLINT NOT NULL,
+  role_staff_desc VARCHAR(20) NOT NULL,
+  staff_levels_experience_desc VARCHAR(20) NOT NULL,
+  PRIMARY KEY(staff_id),
+  CONSTRAINT lvl FOREIGN KEY (staff_levels_experience_desc) REFERENCES staff_levels(staff_levels_experience_desc),
+  CONSTRAINT staffrole FOREIGN KEY (role_staff_desc) REFERENCES role_staff(role_staff_desc),
+  CONSTRAINT staff_age CHECK (staff_age > 17)
+);
+
+DROP TABLE IF EXISTS performer;
+CREATE TABLE performer(
+  performer_id BIGINT NOT NULL AUTO_INCREMENT,
+  performer_name VARCHAR(50) NOT NULL UNIQUE,
+  performer_type VARCHAR(1) NOT NULL,
+  PRIMARY KEY (performer_id),
+  CONSTRAINT performer_type CHECK (performer_type IN ('A', 'B')) #A for artist, B for band
+);
+
+DROP TABLE IF EXISTS genre;
+CREATE TABLE genre (
+	genre_desc VARCHAR(20) NOT NULL,
+    PRIMARY KEY (genre_desc)
+);
+
+DROP TABLE IF EXISTS subgenre;
+CREATE TABLE subgenre (
+	subgenre_desc VARCHAR(30) NOT NULL,
+    PRIMARY KEY(subgenre_desc)
+);
+
+DROP TABLE IF EXISTS artist;
+CREATE TABLE artist(
+  artist_id BIGINT NOT NULL AUTO_INCREMENT,
+  artist_name VARCHAR(50) NOT NULL UNIQUE,
+  artist_nickname VARCHAR(20),
+  artist_birthdate DATE NOT NULL,
+  artist_website VARCHAR(50) UNIQUE,
+  artist_instagram VARCHAR(50) UNIQUE,
+  artist_performer_id BIGINT,
+  PRIMARY KEY (artist_id),
+  CONSTRAINT perfartist FOREIGN KEY (artist_performer_id) REFERENCES performer(performer_id)
+);
+
+DROP TABLE IF EXISTS art2genre;
+CREATE TABLE art2genre(
+	artist_id BIGINT NOT NULL AUTO_INCREMENT,
+ 	genre_desc VARCHAR(20) NOT NULL,
+  	PRIMARY KEY (artist_id, genre_desc),
+	CONSTRAINT genre_exists FOREIGN KEY (genre_desc) REFERENCES genre(genre_desc),
+	CONSTRAINT art_exists FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
+ );	
+
+DROP TABLE IF EXISTS band;
+CREATE TABLE band(
+  band_id  BIGINT NOT NULL AUTO_INCREMENT,
+  band_name VARCHAR(50) NOT NULL UNIQUE,
+  band_formation_date DATE NOT NULL,
+  band_website VARCHAR(50) NOT NULL UNIQUE,
+  band_instagram VARCHAR(50) NOT NULL UNIQUE,
+  band_performer_id BIGINT,
+  PRIMARY KEY (band_id),
+  CONSTRAINT perfband FOREIGN KEY (band_performer_id) REFERENCES performer(performer_id)
+);
+
+DROP TABLE IF EXISTS band2genre;
+CREATE TABLE band2genre(
+	band_id BIGINT NOT NULL AUTO_INCREMENT,
+ 	genre_desc VARCHAR(20) NOT NULL,
+  	PRIMARY KEY (band_id, genre_desc),
+	CONSTRAINT bgenre_exists FOREIGN KEY (genre_desc) REFERENCES genre(genre_desc),
+	CONSTRAINT band_exists2 FOREIGN KEY (band_id) REFERENCES band(band_id)
+ );	
+
+DROP TABLE IF EXISTS members;
+CREATE TABLE members(
+  artist_id BIGINT NOT NULL,
+  band_id BIGINT NOT NULL,
+  position VARCHAR(20) NOT NULL,
+  PRIMARY KEY (artist_id, band_id),
+  CONSTRAINT band_exists FOREIGN KEY (band_id) REFERENCES band(band_id),
+  CONSTRAINT dude_exists FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
+);
+
+DROP TABLE IF EXISTS type_performance;
+CREATE TABLE type_performance (
+	type_performance_id BIGINT NOT NULL,
+    type_performance_desc VARCHAR(20) NOT NULL UNIQUE,
+    PRIMARY KEY (type_performance_id)
+);
+ 
+ INSERT INTO type_performance VALUE (1, 'Warm-up');
+ INSERT INTO type_performance VALUE (2,'Headline');
+ INSERT INTO type_performance VALUE (3,'Special Guest');
+    
+DROP TABLE IF EXISTS performance;
+CREATE TABLE performance (
+  performance_id BIGINT NOT NULL AUTO_INCREMENT,
+  music_event_id BIGINT NOT NULL,
+  performer_id BIGINT NOT NULL,
+  type_performance_desc VARCHAR(20) NOT NULL,
+  performance_start_time TIME NOT NULL,
+  performance_duration SMALLINT NOT NULL CHECK (performance_duration <= 180),
+  performance_end_time TIME,
+  PRIMARY KEY(performance_id),
+  CONSTRAINT event_performed FOREIGN KEY (music_event_id) REFERENCES music_event(music_event_id),
+  CONSTRAINT artist_performed FOREIGN KEY (performer_id) REFERENCES performer(performer_id),
+  CONSTRAINT perf_type FOREIGN KEY (type_performance_desc) REFERENCES type_performance(type_performance_desc)
+);
+
+DROP TABLE IF EXISTS worksIn;
+CREATE TABLE worksIn (
+	staff_id BIGINT NOT NULL,
+    music_event_id BIGINT NOT NULL,
+    PRIMARY KEY(staff_id, music_event_id),
+    CONSTRAINT staff_assigned FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
+    CONSTRAINT event_assigned FOREIGN KEY (music_event_id) REFERENCES music_event(music_event_id)
+);
+
+DROP TABLE IF EXISTS visitor;
+CREATE TABLE visitor (
+  visitor_id BIGINT NOT NULL AUTO_INCREMENT,
+  visitor_name VARCHAR(50) NOT NULL,
+  visitor_surname VARCHAR(50) NOT NULL,
+  visitor_contact_info VARCHAR(100) NOT NULL,
+  visitor_age SMALLINT NOT NULL CHECK (visitor_age >= 0),
+  PRIMARY KEY(visitor_id)
+);
+
+DROP TABLE IF EXISTS ticketType;
+CREATE TABLE ticketType (
+	ticketType_type VARCHAR(20) NOT NULL,
+    PRIMARY KEY(ticketType_type)
+);
+
+INSERT INTO ticketType VALUES
+('VIP'),
+('Backstage'),
+('Standard');
+
+DROP TABLE IF EXISTS ticket;
+CREATE TABLE ticket (
+  ticket_id BIGINT NOT NULL AUTO_INCREMENT,
+  music_event_id BIGINT NOT NULL,
+  visitor_id BIGINT NOT NULL,
+  ticketType_type VARCHAR(20) NOT NULL,
+  ticket_purchase_date DATE NOT NULL,
+  ticket_price FLOAT NOT NULL,
+  ticket_payment_method VARCHAR(20) NOT NULL CHECK (ticket_payment_method IN ('DEBIT','CREDIT','BANK_DEPOSIT')),
+  ticket_EAN_13_code BIGINT NOT NULL, #AUTO_INCREMENT,
+  ticket_status VARCHAR(20) NOT NULL CHECK (ticket_status IN ('USED','NOT USED', 'FOR SALE')),
+  PRIMARY KEY (ticket_id),
+  CONSTRAINT ticket_for_which_event FOREIGN KEY (music_event_id) REFERENCES music_event(music_event_id),
+  CONSTRAINT visitors_ticket FOREIGN KEY (visitor_id) REFERENCES visitor(visitor_id),
+  CONSTRAINT ticket_type FOREIGN KEY (ticketType_type) REFERENCES ticketType(ticketType_type)
+);
+
+  
+DROP TABLE IF EXISTS review;
+CREATE TABLE review (
+  review_id BIGINT NOT NULL AUTO_INCREMENT,
+  visitor_id BIGINT NOT NULL,
+  performance_id BIGINT NOT NULL,
+  review_interpretation SMALLINT NOT NULL,
+  review_sound_and_lighting SMALLINT NOT NULL,
+  review_stage_presence SMALLINT NOT NULL,
+  review_organization SMALLINT NOT NULL,
+  review_overall_impression SMALLINT NOT NULL,
+  PRIMARY KEY (review_id),
+  CONSTRAINT visitor_rating FOREIGN KEY (visitor_id) REFERENCES visitor(visitor_id),
+  CONSTRAINT performance_rated FOREIGN KEY (performance_id) REFERENCES performance(performance_id),
+  CONSTRAINT interpretation_score CHECK (review_interpretation BETWEEN 1 AND 5),
+  CONSTRAINT sound_and_lighting_score CHECK (review_sound_and_lighting BETWEEN 1 AND 5),
+  CONSTRAINT stage_presence_score CHECK (review_stage_presence BETWEEN 1 AND 5),
+  CONSTRAINT organization_score CHECK (review_organization BETWEEN 1 AND 5),
+  CONSTRAINT overall_impression_score CHECK (review_overall_impression BETWEEN 1 AND 5)
+);
+  
+
+DROP TABLE IF EXISTS seller;
+CREATE TABLE seller (
+	visitor_id BIGINT NOT NULL,
+    ticket_id BIGINT NOT NULL,
+    seller_sold CHAR DEFAULT 'N' CHECK (seller_sold IN ('Y', 'N')),
+    PRIMARY KEY(visitor_id, ticket_id),
+    CONSTRAINT valid_seller FOREIGN KEY (visitor_id) REFERENCES visitor(visitor_id),
+    CONSTRAINT valid_ticket FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id)
+);
+
+DROP TABLE IF EXISTS buyer;
+CREATE TABLE buyer (
+	visitor_id BIGINT NOT NULL,
+    music_event_id BIGINT NOT NULL,
+    ticketType_type VARCHAR(20) NOT NULL,
+    ticket_id BIGINT,
+    buyer_timeInserted TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    buyer_sold CHAR DEFAULT 'N' CHECK (buyer_sold IN ('Y', 'N')),
+    PRIMARY KEY (visitor_id, music_event_id),
+    CONSTRAINT buyer FOREIGN KEY (visitor_id) REFERENCES visitor(visitor_id),
+    CONSTRAINT valid_event FOREIGN KEY (music_event_id) REFERENCES music_event(music_event_id),
+    CONSTRAINT tckt_type FOREIGN KEY (ticketType_type) REFERENCES ticketType(ticketType_type)
+);
+
+DROP TABLE IF EXISTS resaleQueue;
+CREATE TABLE resaleQueue (
+	resaleQueue_id BIGINT NOT NULL AUTO_INCREMENT,
+    ticket_id BIGINT NOT NULL,
+    resaleQueue_timeInserted TIMESTAMP NOT NULL,
+    PRIMARY KEY(resaleQueue_id)
+);
