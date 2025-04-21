@@ -4,7 +4,7 @@ festival done
 equipmentCategory done
 equipment done
 stage done
-equipmentUsed
+equipmentUsed done
 music_event done
 staff_levels done
 role_staff done
