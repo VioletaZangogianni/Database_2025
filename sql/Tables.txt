@@ -20,3 +20,10 @@ members done
 type_performance done
 performance
 worksIn
+visitor
+ticketType done
+ticket
+review
+seller
+buyer
+resaleQueue
