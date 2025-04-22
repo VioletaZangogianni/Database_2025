@@ -110,7 +110,7 @@ BEGIN
 	(SELECT artist_id, performance_start_time, performance_end_time FROM A) UNION (SELECT artist_id, performance_start_time, performance_end_time FROM B);
     
     
-    DELETE FROM SameDayPerformers WHERE artist_id <> SOME(SELECT * FROM CurrentPerformers);
+    DELETE FROM SameDayPerformers WHERE artist_id <> ALL(SELECT * FROM CurrentPerformers);
     IF EXISTS
 		(SELECT * FROM SameDayPerformers WHERE
 			NOT(perfStartTime > SameDayPerformers.performance_end_time OR perfEndTime < SameDayPerformers.performance_start_time)) THEN
