@@ -104,11 +104,13 @@ BEGIN
     CREATE TEMPORARY TABLE SameDayPerformers AS
 	WITH 
 		A AS (SELECT * FROM music_event NATURAL JOIN performance NATURAL JOIN (performer JOIN artist ON artist_performer_id = performer_id)
-			WHERE music_event_date = eventDate AND artist_id = SOME(SELECT artist_id FROM CurrentPerformers)),
+			WHERE music_event_date = eventDate),
 		B AS (SELECT * FROM music_event NATURAL JOIN performance NATURAL JOIN (performer JOIN band ON band_performer_id = performer_id) NATURAL JOIN members NATURAL JOIN artist
-			WHERE music_event_date = eventDate AND artist_id = SOME(SELECT artist_id FROM CurrentPerformers))
-	(SELECT performance_start_time, performance_end_time FROM A) UNION (SELECT performance_start_time, performance_end_time FROM B);
+			WHERE music_event_date = eventDate)
+	(SELECT artist_id, performance_start_time, performance_end_time FROM A) UNION (SELECT artist_id, performance_start_time, performance_end_time FROM B);
     
+    
+    DELETE FROM SameDayPerformers WHERE artist_id <> SOME(SELECT * FROM CurrentPerformers);
     IF EXISTS
 		(SELECT * FROM SameDayPerformers WHERE
 			NOT(perfStartTime > SameDayPerformers.performance_end_time OR perfEndTime < SameDayPerformers.performance_start_time)) THEN
@@ -132,7 +134,7 @@ BEGIN
     SELECT artist_id, eventYear, ROW_NUMBER() OVER (PARTITION BY artist_id ORDER BY eventYear) AS rowNum
 		FROM YearsPerformed;
         
-	IF EXISTS (SELECT * FROM YearsPerformedNumbered GROUP BY artist_id, eventYear - rowNum HAVING COUNT(*) > 3) THEN
+	IF EXISTS (SELECT artist_id, eventYear - rowNum FROM YearsPerformedNumbered GROUP BY artist_id, eventYear - rowNum HAVING COUNT(*) > 3) THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Artist performing for more than 3 years in a row';
     END IF;
 END;
