@@ -20,9 +20,9 @@ members done
 type_performance done
 performance done
 worksIn done
-visitor
+visitor done
 ticketType done
-ticket
+ticket done
 review
 seller
 buyer
