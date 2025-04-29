@@ -296,7 +296,8 @@ INSERT INTO stage (stage_name, stage_description, stage_capacity) VALUES
 ('Panthessaliko Stadium'                , 'Niki Volos FC'          , '227'),
 ('Red Bull Arena'                       , 'RB Leipzig'             , '470'),
 ('Groupama Stadium'                     , 'Olympique Lyonnais'     , '592'),
-('BayArena'                             , 'Bayer Leverkusen'       , '302');
+('BayArena'                             , 'Bayer Leverkusen'       , '302'),
+('Seller Arena'                         , 'Buyer'                  , '20' );
 
 INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time) VALUES
 -- Music events for Festival 1: Bloom (2020-05-14 to 2020-05-15)
@@ -369,7 +370,7 @@ INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time)
 #(6, 1, '2025-11-19', '18:00'),
 (6, 2, '2025-11-19', '20:00'),
 #(6, 3, '2025-11-19', '22:00'),
-(6, 4, '2025-11-19', '23:30'),
+(6, 31, '2025-11-19', '23:30'),
 #(6, 5, '2025-11-20', '16:00'),
 (6, 6, '2025-11-20', '17:30'),
 #(6, 7, '2025-11-20', '19:00'),
@@ -1082,8 +1083,8 @@ INSERT INTO performance (music_event_id,performer_id,type_performance_desc,perfo
 (1 , 151 , 'Headline' , '19:32:00' , 67),
 (2 , 144 , 'Headline' , '21:00:00' , 66),
 (3 , 123 , 'Warm-up' , '17:30:00' , 71),
-(4 , 7 , 'Special Guest' , '20:30:00' , 61),
-(5 , 63 , 'Special Guest' , '19:00:00' , 77),
+(4 , 123 , 'Warm-up' , '20:30:00' , 61),
+(5 , 123 , 'Warm-up' , '19:00:00' , 77),
 (5 , 101 , 'Headline' , '20:28:00' , 131),
 (5 , 116 , 'Special Guest' , '22:48:00' , 61),
 (6 , 125 , 'Headline' , '22:00:00' , 78),
@@ -3714,7 +3715,7 @@ INSERT INTO ticket (music_event_id, visitor_id, ticketType_type, ticket_purchase
 (35, 1, 'BACKSTAGE', '2004-01-01', 54.79, 'CREDIT', '3837137348982', 'NOT USED'),
 (35, 2, 'BACKSTAGE', '2004-01-01', 54.65, 'DEBIT', '9840864120244', 'NOT USED'),
 (35, 3, 'REGULAR', '2004-01-01', 184.25, 'CREDIT', '9114282753781', 'NOT USED'),
-(35, 4, 'REGULAR', '2004-01-01', 90.93, 'BANK_DEPOSIT', '5848271700497', 'NOT USED'),
+(35, 4, 'VIP', '2004-01-01', 90.93, 'BANK_DEPOSIT', '5848271700497', 'NOT USED'),
 (35, 5, 'STUDENT', '2004-01-01', 167.83, 'DEBIT', '2139403838847', 'NOT USED'),
 (35, 6, 'REGULAR', '2004-01-01', 146.37, 'BANK_DEPOSIT', '8608353862423', 'NOT USED'),
 (35, 7, 'BACKSTAGE', '2004-01-01', 27.49, 'CREDIT', '6713664070961', 'NOT USED'),
