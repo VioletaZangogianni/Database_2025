@@ -159,8 +159,7 @@ DELIMITER //
 CREATE TRIGGER insertOnBuyer BEFORE INSERT ON buyer FOR EACH ROW
 BEGIN
 	DECLARE eventId BIGINT;
-    SELECT music_event_id INTO eventId
-		FROM music_event NATURAL JOIN ticket WHERE NEW.ticket_id = ticket_id;
+    SELECT music_event_id INTO eventId FROM music_event WHERE music_event_id = NEW.music_event_id;
     
     CALL checkSoldOut(eventId, @soldout);
     IF @soldout = FALSE THEN
@@ -168,7 +167,7 @@ BEGIN
 	END IF;
 
 
-	IF NOT EXISTS (SELECT * FROM ticket
+	IF (NEW.ticket_id IS NOT NULL) AND NOT EXISTS (SELECT * FROM ticket
 		WHERE NEW.ticket_id = ticket_id AND NEW.music_event_id = music_event_id AND NEW.ticketType_type = ticketType_type) THEN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ticket Information Incorrect';
 	END IF;
@@ -183,6 +182,10 @@ BEGIN
     CALL findTicket(NEW.visitor_id, NEW.music_event_id, NEW.ticketType_type, @result);
     
     IF @result = 1 THEN
+		IF (SELECT COUNT(*) FROM ticket WHERE visitor_id = NEW.visitor_id AND music_event_id = NEW.music_event_id) > 1 THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Already Owns Ticket';
+        END IF;
+    
 		SET NEW.buyer_sold = 'Y';
     END IF;
 END;
