@@ -148,11 +148,11 @@ BEGIN
     DECLARE soldTickets BIGINT;
     
     SELECT stage_capacity INTO capacity FROM music_event NATURAL JOIN stage WHERE eventId = music_event_id LIMIT 1;
-    SELECT COUNT(*) FROM ticket NATURAL JOIN music_event WHERE music_event_id = eventId;
+    SELECT COUNT(*) INTO soldTickets FROM ticket NATURAL JOIN music_event WHERE music_event_id = eventId;
     
-    SET isSoldOut = TRUE;
+    SET isSoldOut = FALSE;
     IF soldTickets = capacity THEN
-		SET isSoldOut = FALSE;
+		SET isSoldOut = TRUE;
 	END IF;
 END;
 //
