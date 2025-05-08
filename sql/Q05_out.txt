@@ -1,0 +1,4 @@
+ID	Name		Age	Appearances
+17	Doja Cat	29	2
+7	Billie Eilish	23	1
+10	Olivia Rodrigo	22	1
