@@ -21,6 +21,8 @@ CREATE TABLE festival (
   location_id BIGINT NOT NULL UNIQUE,
   festival_start_date DATE NOT NUlL UNIQUE,
   festival_end_date DATE NOT NULL UNIQUE,
+  festival_image_url VARCHAR(255) DEFAULT 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  festival_image_description VARCHAR(64) DEFAULT 'This is a festival!',
   PRIMARY KEY(festival_id),
   CONSTRAINT where_fest FOREIGN KEY (location_id) REFERENCES location(location_id),
   CONSTRAINT festival_date CHECK (festival_start_date < festival_end_date),
@@ -38,6 +40,8 @@ CREATE TABLE equipment (
   equipment_id BIGINT NOT NULL AUTO_INCREMENT,
   equipment_product VARCHAR(20) NOT NULL UNIQUE,
   equipmentCategory_category VARCHAR(20) NOT NULL,
+  equipment_image VARCHAR(256) DEFAULT 'https://images.unsplash.com/photo-1520444451380-ebe0f7b9cfd5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  equipment_description VARCHAR(32) DEFAULT 'Equipment description',
   PRIMARY KEY(equipment_id),
   CONSTRAINT equipment_category FOREIGN KEY (equipmentCategory_category) REFERENCES equipmentCategory(equipmentCategory_category)
 );
@@ -115,6 +119,8 @@ CREATE TABLE performer(
   performer_id BIGINT NOT NULL AUTO_INCREMENT,
   performer_name VARCHAR(50) NOT NULL UNIQUE,
   performer_type VARCHAR(1) NOT NULL,
+  performer_image VARCHAR(256) DEFAULT 'https://media.istockphoto.com/id/666258850/photo/silhouette-of-guitar-player-on-stage.webp?a=1&b=1&s=612x612&w=0&k=20&c=agjKh4C61HNr6RhX9ttAulqGSkwDGWWk4WLXtpSuNwE=',
+  performer_description VARCHAR(32) DEFAULT 'I am a performer',
   PRIMARY KEY (performer_id),
   CONSTRAINT performer_type CHECK (performer_type IN ('A', 'B')) #A for artist, B for band
 );
