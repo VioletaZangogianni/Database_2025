@@ -1,6 +1,6 @@
-visitor_id	artist_id	score
-67		95		10
-66		71		10
-66		72		10
-66		73		10
-66		74		10
+Reviewer	Artist		Score
+Timothy McGee	Taylor York	10
+Abby Sciuto	Mick Jagger	10
+Abby Sciuto	Keith Richards	10
+Abby Sciuto	Charlie Watts	10
+Abby Sciuto	Ronnie Wood	10
