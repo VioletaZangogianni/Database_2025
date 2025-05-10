@@ -1,0 +1,20 @@
+ID	Name			different_continents
+101	Ryan Tedder		3
+75	Mike Shinoda		3
+85	Mike Dirnt		3
+63	Alex Turner		4
+108	Caleb Followill		5
+89	Adam Hann		4
+76	Brad Delson		4
+124	The Edge		3
+105	Bryan Yoder		4
+106	Jared Followill		3
+69	Stevie Nicks		3
+60	Nate Mendel		3
+34	Peggy Zina		3
+103	Drew Brown		3
+90	Ross MacDonald		3
+84	Billie Joe Armstrong	3
+86	Tre Cool		3
+102	Zach Filkins		3
+104	Eddie Fisher		3

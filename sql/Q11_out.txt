@@ -1,0 +1,40 @@
+artist_id	Name			Appearances
+3		Adele			1
+7		Billie Eilish		1
+10		Olivia Rodrigo		1
+19		Lana Del Rey		1
+20		SZA			1
+23		Miley Cyrus		1
+24		Halsey			1
+26		Anna Vissi		1
+27		Sakis Rouvas		1
+28		Despina Vandi		1
+32		Katy Garbi		1
+33		Antonis Remos		1
+37		Michalis Hatzigiannis	1
+40		Nikos Oikonomopoulos	1
+51		Wayne Sermon		1
+53		Daniel Platzman		1
+80		Flea			1
+82		Chad Smith		1
+98		Dave Keuning		1
+100		Ronnie Vannucci Jr.	1
+114		Matt Bellamy		1
+115		Chris Wolstenholme	1
+117		Alex Pall		1
+118		Drew Taggart		1
+126		Larry Mullen Jr.	1
+129		Tom DeLonge		1
+130		Kurt Cobain		1
+132		Dave Grohls		1
+136		Jeff Ament		1
+46		Chris Martin		1
+54		Adam Levine		1
+55		James Valentine		1
+56		Mickey Madden		1
+61		Pat Smear		1
+71		Mick Jagger		1
+73		Charlie Watts		1
+78		Dave "Phoenix" Farrell	1
+92		Josh Dun		1
+93		Hayley Williams		1

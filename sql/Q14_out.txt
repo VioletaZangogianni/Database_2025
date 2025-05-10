@@ -1,0 +1,16 @@
+genre_desc	fest_year	appearances
+Blues		2027		4
+Blues		2021		3
+Classical	2028		3
+Classical	2024		4
+Country		2020		3
+EDM		2028		4
+Electronic	2028		4
+Folk		2027		4
+Folk		2028		4
+Jazz		2028		3
+Pop		2028		4
+Pop		2021		3
+Pop		2024		5
+Pop		2027		4
+R&B		2027		4

@@ -1,0 +1,6 @@
+visitor_id	artist_id	score
+67		95		10
+66		71		10
+66		72		10
+66		73		10
+66		74		10
