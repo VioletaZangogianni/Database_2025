@@ -4,4 +4,4 @@ WITH band_perf AS (SELECT band_id, music_event_id FROM band INNER JOIN performan
      art_cont (artist_id, artist_name, continent) AS (SELECT * FROM A UNION SELECT * FROM B)
 SELECT artist_id AS ID, artist_name AS 'Name', COUNT(continent) AS different_continents FROM art_cont
 	GROUP BY artist_id, artist_name
-	HAVING different_continents > 3;
+	HAVING different_continents >= 3;
