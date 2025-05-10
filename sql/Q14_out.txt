@@ -1,18 +1,5 @@
-Genre		First Year	Second Year	appearances
+genre_desc	First Year	Second Year	appearances
 Blues		2021		2022		3
-Blues		2027		2028		5
-Classical	2024		2025		4
 Classical	2028		2029		4
-Country		2020		2021		3
-EDM		2027		2028		6
-EDM		2028		2029		4
 Folk		2027		2028		4
-Folk		2028		2029		4
-Hip-Hop		2027		2028		6
-Jazz		2028		2029		4
-Pop		2021		2022		3
-Pop		2024		2025		5
-Pop		2027		2028		4
 Pop		2028		2029		5
-R&B		2027		2028		4
-Rock		2027		2028		5
