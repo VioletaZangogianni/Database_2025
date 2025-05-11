@@ -106,7 +106,7 @@ BEGIN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Too Many Tickets';
 	END IF;
     
-    IF NEW.ticket_status = 'VIP' THEN
+    IF NEW.ticketType_type = 'VIP' THEN
 		SET capacity = CEILING(capacity * 0.1);
 		IF (SELECT COUNT(*) + 1 FROM
 			ticket WHERE music_event_id = NEW.music_event_id AND ticketType_type = 'VIP') > capacity THEN
