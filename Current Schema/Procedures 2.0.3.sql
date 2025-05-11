@@ -44,7 +44,7 @@ BEGIN
     DROP TEMPORARY TABLE IF EXISTS SameDayStaff;
     CREATE TEMPORARY TABLE SameDayStaff AS
 	SELECT music_event_time, music_event_end_time FROM
-		worksIn NATURAL JOIN music_event WHERE staffId = staffId AND music_event_date = eventDate;
+		worksIn NATURAL JOIN music_event WHERE staff_id = staffId AND music_event_date = eventDate;
     
     IF EXISTS
 		(SELECT * FROM SameDayStaff WHERE
