@@ -1,6 +1,6 @@
 INSERT INTO location VALUES (999999, 'Demo Location', "a", "a", "a", "Europe");
 INSERT INTO stage VALUES (999998, "Demo1", "Demo Stage", 10);
-INSERT INTO stage VALUES (999999, "Demo2", "Demo Stage", 100);
+INSERT INTO stage VALUES (999999, "Demo2", "Demo Stage", 5);
 
 # Wrong Dates
 INSERT INTO festival VALUES (999999, 'Demo', '2050', 999999, '2050-5-14', '2051-5-17', NULL, NULL);
@@ -46,16 +46,46 @@ INSERT INTO review VALUES (999999, 2, 999997, 5, 5, 5, 5, 5);
 
 INSERT INTO review VALUES (999999, 1, 999997, 5, 5, 5, 5, 5);
 
+INSERT INTO ticket VALUES
+(999993, 999999, 1, 'REGULAR', '2020-10-10', '10.00', 'DEBIT', '1109876543211', 'NOT USED');
 
-INSERT INTO seller(visitor_id,ticket_id) VALUES
-(1,2282),
-(2,2283),
-(3,2284),
-(4,2285);
+# Performance Not Sold Out
+INSERT INTO seller(visitor_id, ticket_id) VALUES
+(1, 999993);
 
+INSERT INTO ticket VALUES
+(999994, 999999, 2, 'VIP', '2020-10-10', '10.00', 'DEBIT', '1234567891019', 'NOT USED'),
+(999995, 999999, 3, 'REGULAR', '2020-10-10', '10.00', 'DEBIT', '1821182118210', 'NOT USED'),
+(999996, 999999, 4, 'STUDENT', '2020-10-10', '10.00', 'DEBIT', '8630138947827', 'NOT USED'),
+(999997, 999999, 5, 'STUDENT', '2020-10-10', '10.00', 'DEBIT', '1938473920480', 'USED');
 
-SELECT * FROM resalequeue;
+# Seller Not Owns Ticket
+INSERT INTO seller(visitor_id, ticket_id) VALUES
+(1, 999994);
+
+# Ticket Used
+INSERT INTO seller(visitor_id, ticket_id) VALUES
+(5, 999997);
+
+INSERT INTO seller(visitor_id, ticket_id) VALUES
+(1, 999993),
+(2, 999994),
+(3, 999995);
+
+SELECT * FROM resaleQueue;
 
 INSERT INTO buyer(visitor_id, music_event_id, ticketType_type) VALUES
-(21, 43, 'REGULAR'),
-(22, 43, 'BACKSTAGE');
+(6, 999999, 'REGULAR');
+
+SELECT * FROM ticket WHERE ticket_id = 999993;
+
+INSERT INTO buyer(visitor_id, music_event_id, ticketType_type) VALUES
+(7, 999999, 'STUDENT');
+
+INSERT INTO seller(visitor_id, ticket_id) VALUES
+(4, 999996);
+SELECT * FROM ticket WHERE ticket_id = 999996;
+
+SELECT * FROM resaleQueue;
+SELECT * FROM seller;
+SELECT * FROM buyer;
