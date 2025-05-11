@@ -72,6 +72,7 @@ CREATE TABLE music_event (
   stage_id BIGINT NOT NULL,
   music_event_date DATE NOT NULL,
   music_event_time TIME NOT NULL,
+  music_event_end_time TIME,
   PRIMARY KEY(music_event_id),
   CONSTRAINT part_of_fest FOREIGN KEY (festival_id) REFERENCES festival(festival_id),
   CONSTRAINT takes_place_in FOREIGN KEY (stage_id) REFERENCES stage(stage_id)
