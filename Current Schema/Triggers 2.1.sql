@@ -15,6 +15,14 @@ END;
 DELIMITER ;
 
 DELIMITER //
+CREATE TRIGGER staffInsert AFTER INSERT ON worksIn FOR EACH ROW
+BEGIN
+	CALL checkStaffOverlap(NEW.music_event_id);
+END;
+//
+DELIMITER ;
+
+DELIMITER //
 CREATE TRIGGER event_date BEFORE INSERT ON music_event FOR EACH ROW
 BEGIN
 	IF NOT EXISTS
@@ -44,6 +52,9 @@ DELIMITER //
 CREATE TRIGGER checkArtistYears AFTER INSERT ON performance FOR EACH ROW
 BEGIN
 	CALL checkArtistStreak();
+    
+    UPDATE music_event SET music_event_end_time = NEW.performance_end_time
+		WHERE music_event_id = NEW.music_event_id;
 END;
 //
 DELIMITER ;
