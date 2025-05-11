@@ -79,7 +79,9 @@ CREATE TRIGGER checkTickets BEFORE INSERT ON ticket FOR EACH ROW
 BEGIN
     DECLARE capacity BIGINT;
     SELECT stage_capacity INTO capacity FROM music_event NATURAL JOIN stage WHERE NEW.music_event_id = music_event_id LIMIT 1;
-    
+
+    CALL checkEAN(NEW.ticket_EAN_13_code);
+
     IF NEW.ticket_status = 'FOR SALE' THEN
 		SET NEW.ticket_status = 'NOT USED';
 	END IF;
@@ -98,17 +100,6 @@ BEGIN
 		ticket NATURAL JOIN music_event WHERE music_event_id = NEW.music_event_id AND ticketType_type = 'VIP') > capacity THEN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Too Many VIP';
 	END IF;
-END;
-//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER isTicketForSale AFTER INSERT ON ticket FOR EACH ROW
-BEGIN
-    IF NEW.ticket_status = 'FOR SALE' THEN
-		INSERT INTO seller(visitor_id, ticket_id) VALUES (NEW.visitor_id, NEW.ticket_id);
-		INSERT INTO resaleQueue(ticket_id, resaleQueue_timeInserted) VALUES (NEW.ticket_id,  CURRENT_TIMESTAMP); 
-    END IF;
 END;
 //
 DELIMITER ;
