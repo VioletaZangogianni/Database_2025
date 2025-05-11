@@ -28,7 +28,7 @@ END;
 DELIMITER ;
 
 DELIMITER //
-CREATE PROCEDURE checkStaffOverlap(eventId BIGINT)
+CREATE PROCEDURE checkStaffOverlap(staffId BIGINT, eventId BIGINT)
 BEGIN
 	DECLARE eventDate DATE;
     DECLARE eventStart TIME;
@@ -41,18 +41,10 @@ BEGIN
 	SELECT music_event_end_time INTO eventEnd
 		FROM music_event WHERE music_event_id = eventId;
     
-    DROP TEMPORARY TABLE IF EXISTS CurrentStaff;
-	CREATE TEMPORARY TABLE CurrentStaff AS
-	SELECT staff_id FROM
-		worksIn NATURAL JOIN music_event WHERE music_event_id = eventId;
-    
-    
     DROP TEMPORARY TABLE IF EXISTS SameDayStaff;
     CREATE TEMPORARY TABLE SameDayStaff AS
-	SELECT staff_id, music_event_time, music_event_end_time FROM
-		worksIn NATURAL JOIN music_event WHERE music_event_date = eventDate;
-    
-    DELETE FROM SameDayStaff WHERE staff_id <> ALL(SELECT * FROM CurrentStaff);
+	SELECT music_event_time, music_event_end_time FROM
+		worksIn NATURAL JOIN music_event WHERE staffId = staffId AND music_event_date = eventDate;
     
     IF EXISTS
 		(SELECT * FROM SameDayStaff WHERE
