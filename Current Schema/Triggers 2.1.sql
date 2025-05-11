@@ -88,7 +88,10 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER checkTickets BEFORE INSERT ON ticket FOR EACH ROW
 BEGIN
+	DECLARE eventDate DATE;
     DECLARE capacity BIGINT;
+    
+    SELECT music_event_date INTO eventDate FROM music_event WHERE NEW.music_event_id = music_event_id;
     SELECT stage_capacity INTO capacity FROM music_event NATURAL JOIN stage WHERE NEW.music_event_id = music_event_id LIMIT 1;
 
     CALL checkEAN(NEW.ticket_EAN_13_code);
@@ -99,6 +102,11 @@ BEGIN
     
     IF EXISTS (SELECT * FROM ticket WHERE visitor_id = NEW.visitor_id AND music_event_id = NEW.music_event_id) THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Visitor Already Owns Ticket';
+    END IF;
+    
+	IF EXISTS (SELECT * FROM ticket NATURAL JOIN music_event
+					WHERE visitor_id = NEW.visitor_id AND music_event_date = eventDate) THEN
+						SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Visitor Already Owns Ticket';
     END IF;
     
 	IF (SELECT COUNT(*) + 1 FROM
@@ -183,7 +191,7 @@ BEGIN
 	SET NEW.buyer_timeInserted = CURRENT_TIMESTAMP;
     SET NEW.buyer_sold = 'N';
     
-    CALL findTicket(NEW.visitor_id, NEW.music_event_id, NEW.ticketType_type, @result);
+    CALL findTicket(NEW.visitor_id, NEW.music_event_id, NEW.ticketType_type, NEW.ticket_id, @result);
     
     IF @result = 1 THEN
 		IF (SELECT COUNT(*) FROM ticket WHERE visitor_id = NEW.visitor_id AND music_event_id = NEW.music_event_id) > 1 THEN
