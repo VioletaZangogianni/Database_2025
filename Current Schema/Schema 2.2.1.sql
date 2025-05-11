@@ -158,6 +158,15 @@ CREATE TABLE art2genre(
 	CONSTRAINT genre_exists FOREIGN KEY (genre_desc) REFERENCES genre(genre_desc),
 	CONSTRAINT art_exists FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
  );	
+ 
+DROP TABLE IF EXISTS art2subgenre;
+CREATE TABLE art2subgenre(
+	artist_id BIGINT NOT NULL AUTO_INCREMENT,
+ 	subgenre_desc VARCHAR(20) NOT NULL,
+  	PRIMARY KEY (artist_id, subgenre_desc),
+	CONSTRAINT subgenre_exists FOREIGN KEY (subgenre_desc) REFERENCES subgenre(subgenre_desc),
+	CONSTRAINT art_sub_exists FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
+ );	
 
 DROP TABLE IF EXISTS band;
 CREATE TABLE band(
@@ -178,6 +187,15 @@ CREATE TABLE band2genre(
   	PRIMARY KEY (band_id, genre_desc),
 	CONSTRAINT bgenre_exists FOREIGN KEY (genre_desc) REFERENCES genre(genre_desc),
 	CONSTRAINT band_exists2 FOREIGN KEY (band_id) REFERENCES band(band_id)
+ );	
+
+DROP TABLE IF EXISTS band2subgenre;
+CREATE TABLE band2subgenre(
+	band_id BIGINT NOT NULL AUTO_INCREMENT,
+ 	subgenre_desc VARCHAR(20) NOT NULL,
+  	PRIMARY KEY (band_id, subgenre_desc),
+	CONSTRAINT bsubgenre_exists FOREIGN KEY (subgenre_desc) REFERENCES subgenre(subgenre_desc),
+	CONSTRAINT band_sub_exists FOREIGN KEY (band_id) REFERENCES band(band_id)
  );	
 
 DROP TABLE IF EXISTS members;
