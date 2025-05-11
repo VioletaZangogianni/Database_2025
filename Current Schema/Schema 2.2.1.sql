@@ -274,7 +274,7 @@ CREATE TABLE ticket (
   ticket_purchase_date DATE NOT NULL,
   ticket_price FLOAT NOT NULL,
   ticket_payment_method VARCHAR(20) NOT NULL CHECK (ticket_payment_method IN ('DEBIT','CREDIT','BANK_DEPOSIT')),
-  ticket_EAN_13_code BIGINT NOT NULL, #AUTO_INCREMENT,
+  ticket_EAN_13_code BIGINT NOT NULL UNIQUE,
   ticket_status VARCHAR(20) NOT NULL CHECK (ticket_status IN ('USED','NOT USED', 'FOR SALE')),
   PRIMARY KEY (ticket_id),
   CONSTRAINT ticket_for_which_event FOREIGN KEY (music_event_id) REFERENCES music_event(music_event_id),
