@@ -30,4 +30,7 @@ CREATE INDEX buyer_visitor_idx ON buyer(visitor_id);
 CREATE INDEX buyer_event_idx ON buyer(music_event_id);
 CREATE INDEX buyer_ticket_idx ON buyer(ticketType_type);
 
+
 CREATE INDEX year_idx ON festival(festival_fest_year);
+CREATE INDEX staff_role ON role_staff(role_staff_desc);
+CREATE INDEX ticket_buy_method ON ticket(ticket_payment_method);
