@@ -15,7 +15,7 @@ END;
 DELIMITER ;
 
 DELIMITER //
-CREATE TRIGGER staffInsert AFTER INSERT ON worksIn FOR EACH ROW
+CREATE TRIGGER staffInsert BEFORE INSERT ON worksIn FOR EACH ROW
 BEGIN
 	CALL checkStaffOverlap(NEW.music_event_id);
 END;
