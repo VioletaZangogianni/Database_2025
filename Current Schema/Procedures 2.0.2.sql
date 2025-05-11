@@ -27,6 +27,40 @@ END;
 //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE checkStaffOverlap(eventId BIGINT)
+BEGIN
+	DECLARE eventDate DATE;
+    DECLARE eventStart TIME;
+    DECLARE eventEnd TIME;
+    
+    SELECT music_event_date INTO eventDate
+		FROM music_event WHERE music_event_id = eventId;
+	SELECT music_event_time INTO eventStart
+		FROM music_event WHERE music_event_id = eventId;
+	SELECT music_event_end_time INTO eventEnd
+		FROM music_event WHERE music_event_id = eventId;
+    
+    DROP TEMPORARY TABLE IF EXISTS CurrentStaff;
+	CREATE TEMPORARY TABLE CurrentStaff AS
+	SELECT staff_id FROM
+		worksIn NATURAL JOIN music_event WHERE music_event_id = eventId;
+    
+    
+    DROP TEMPORARY TABLE IF EXISTS SameDayStaff;
+    CREATE TEMPORARY TABLE SameDayStaff AS
+	SELECT staff_id, music_event_time, music_event_end_time FROM
+		worksIn NATURAL JOIN music_event WHERE music_event_date = eventDate;
+    
+    DELETE FROM SameDayStaff WHERE staff_id <> ALL(SELECT * FROM CurrentStaff);
+    
+    IF EXISTS
+		(SELECT * FROM SameDayStaff WHERE
+			NOT(eventStart > SameDayStaff.music_event_end_time OR eventEnd < SameDayStaff.music_event_time)) THEN
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Staff working at the same time';
+	END IF;
+END;
+//
 
 DELIMITER //
 CREATE PROCEDURE checkBreak(event_id BIGINT, perfStart TIME)
