@@ -371,14 +371,6 @@ INSERT INTO staff (staff_name, staff_age, role_staff_desc, staff_levels_experien
 ('Isabelle Riedl'      , 24 , 'Technical', 'Trainee');
 
 
-
-
-
-
-
-
-
-
 INSERT INTO location (location_address, location_coordinates, location_city, location_country, location_continent) VALUES
 ('Sotiros Dios 10'  , '10-10'  , 'Piraeus'    , 'Greece'    , 'Europe'     ),
 ('22B Bakery Str'   , '20-10'  , 'London'     , 'England'   , 'Europe'     ),
@@ -396,7 +388,7 @@ INSERT INTO festival (festival_name, festival_fest_year, location_id, festival_s
 ('Carnival'          , '2021' , 2  , '2021-11-1'  , '2021-11-3'  ),
 ('Aurora'            , '2022' , 3  , '2022-12-29' , '2022-12-31' ),
 ('Eclipse Fest'      , '2023' , 4  , '2023-2-16'  , '2023-2-28'  ),
-('Cathering for tea' , '2024' , 5  , '2024-4-5'   , '2024-4-15'  ),
+('Gathering for tea' , '2024' , 5  , '2024-4-5'   , '2024-4-15'  ),
 ('Wine'              , '2025' , 6  , '2025-11-18' , '2025-11-25' ),
 ('Ski'               , '2026' , 7  , '2026-8-15'  , '2026-9-2'   ),
 ('Ocean'             , '2027' , 8  , '2027-3-12'  , '2027-3-22'  ),
@@ -507,7 +499,7 @@ INSERT INTO stage (stage_name, stage_description, stage_capacity) VALUES
 ('Seller Arena'                         , 'Buyer'                  , '20' );
 
 INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time) VALUES
--- Music events for Festival 1: Bloom (2020-05-14 to 2020-05-15)
+-- Music events for Festival 1: Bloom
 (1, 1, '2020-05-14', '18:00'),
 (1, 2, '2020-05-14', '21:00'),
 (1, 1, '2020-05-15', '17:30'),
@@ -517,24 +509,24 @@ INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time)
 (1, 3, '2020-05-17', '18:00'),
 (1, 4, '2020-05-17', '21:00'),
 
--- Music events for Festival 2: Carnival (2021-11-01 to 2021-11-03)
+-- Music events for Festival 2: Carnival
 (2, 5, '2021-11-01', '18:00'),
 (2, 5, '2021-11-02', '19:00'),
 (2, 6, '2021-11-02', '17:30'),
 (2, 5, '2021-11-03', '19:00'),
 
--- Music events for Festival 3: Aurora (2022-12-29 to 2022-12-31)
+-- Music events for Festival 3: Aurora 
 (3, 7, '2022-12-29', '18:30'),
 (3, 7, '2022-12-30', '19:00'),
 (3, 7, '2022-12-31', '18:00'),
 (3, 8, '2022-12-31', '17:30'),
 
--- Music events for Festival 4: Eclipse Fest (2023-02-16 to 2023-02-28)
+-- Music events for Festival 4: Eclipse Fest 
 (4, 9, '2023-02-16', '18:00'),
 (4, 9, '2023-02-17', '19:00'),
 (4, 9, '2023-02-18', '18:00'),
 (4, 9, '2023-02-19', '19:30'),
--- Festival 5: Cathering for tea (2024-04-05 to 2024-04-15)
+-- Festival 5: Gathering for tea 
 (5, 10, '2024-04-05', '18:00'),
 (5, 10, '2024-04-06', '17:30'),
 (5, 10, '2024-04-07', '19:00'),
@@ -549,7 +541,7 @@ INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time)
 (5, 11, '2024-04-15', '22:00'),
 (5, 12, '2024-04-06', '23:59'),
 
--- Festival 6: Wine (2025-11-19 to 2025-11-21)
+-- Festival 6: Wine 
 (6, 13, '2025-11-18', '20:00'),
 (6, 14, '2025-11-18', '23:30'),
 (6, 13, '2025-11-20', '17:30'),
@@ -559,11 +551,11 @@ INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time)
 (6, 14, '2025-11-21', '19:30'),
 (6, 13, '2025-11-21', '22:30'),
 (6, 13, '2025-11-22', '17:00'),
-(6, 20, '2025-11-19', '20:00'),
+(6, 31, '2025-11-19', '20:00'),
 (6, 13, '2025-11-24', '23:00'),
 (6, 13, '2025-11-25', '23:45'),
 
--- Festival 7: Ski (2026-08-15 to 2026-09-02)
+-- Festival 7: Ski 
 (7, 21, '2026-08-15', '21:00'),
 (7, 22, '2026-08-16', '22:00'),
 (7, 23, '2026-08-17', '20:00'),
@@ -577,7 +569,7 @@ INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time)
 (7, 21, '2026-08-25', '22:00'),
 (7, 22, '2026-09-01', '21:00'),
 
--- Music events for Festival 8: Ocean (2027-03-12 to 2027-03-22)
+-- Music events for Festival 8: Ocean
 (8, 14, '2027-03-12', '18:00'),
 (8, 15, '2027-03-12', '20:00'),
 (8, 14, '2027-03-13', '19:00'),
@@ -601,7 +593,7 @@ INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time)
 (8, 14, '2027-03-22', '19:00'),
 (8, 15, '2027-03-22', '22:00'),
 
--- Music events for Festival 9: Golden Vibes (2028-09-02 to 2028-09-23)
+-- Music events for Festival 9: Golden Vibes 
 (9, 16, '2028-09-02', '18:30'),
 (9, 17, '2028-09-02', '21:00'),
 (9, 16, '2028-09-03', '19:00'),
@@ -628,7 +620,7 @@ INSERT INTO music_event (festival_id,stage_id,music_event_date,music_event_time)
 (9, 17, '2028-09-13', '21:00'),
 (9, 16, '2028-09-14', '19:30'),
 
--- Music events for Festival 10: Flowers (2029-03-03 to 2029-03-15)
+-- Music events for Festival 10: Flowers
 (10, 18, '2029-03-03', '18:00'),
 (10, 19, '2029-03-03', '21:00'),
 (10, 18, '2029-03-04', '19:00'),
@@ -5688,10 +5680,6 @@ INSERT INTO ticket (music_event_id, visitor_id, ticketType_type, ticket_purchase
 (125, 15, 'STUDENT', '2004-01-01', 114.35, 'CREDIT', '1530556940530', 'NOT USED'),
 (125, 16, 'REGULAR', '2004-01-01', 49.12, 'CREDIT', '3617547494635', 'NOT USED'),
 (125, 17, 'STUDENT', '2004-01-01', 66.47, 'BANK_DEPOSIT', '3302106298334', 'NOT USED'),
-(125, 18, 'REGULAR', '2004-01-01', 64.29, 'DEBIT', '9294935877771', 'NOT USED'),
-(125, 19, 'STUDENT', '2004-01-01', 196.27, 'CREDIT', '0461196155033', 'NOT USED'),
-(125, 20, 'BACKSTAGE', '2004-01-01', 171.14, 'CREDIT', '6260463166987', 'NOT USED'),
-(126, 1, 'BACKSTAGE', '2004-01-01', 71.46, 'DEBIT', '4015445359879', 'NOT USED'),
 (126, 2, 'STUDENT', '2004-01-01', 174.75, 'DEBIT', '0942060175673', 'NOT USED'),
 (126, 3, 'REGULAR', '2004-01-01', 26.49, 'CREDIT', '2410195724274', 'NOT USED'),
 (126, 4, 'REGULAR', '2004-01-01', 176.49, 'CREDIT', '7049757895579', 'NOT USED'),
@@ -5720,11 +5708,6 @@ INSERT INTO ticket (music_event_id, visitor_id, ticketType_type, ticket_purchase
 (127, 7, 'STUDENT', '2004-01-01', 79.96, 'BANK_DEPOSIT', '3175955217845', 'NOT USED'),
 (127, 8, 'STUDENT', '2004-01-01', 188.93, 'DEBIT', '8711368080352', 'NOT USED'),
 (127, 9, 'STUDENT', '2004-01-01', 116.69, 'CREDIT', '4451488866491', 'NOT USED'),
-(127, 10, 'STUDENT', '2004-01-01', 165.51, 'DEBIT', '6679270764437', 'NOT USED'),
-(127, 11, 'REGULAR', '2004-01-01', 147.51, 'CREDIT', '2229137501541', 'NOT USED'),
-(127, 12, 'BACKSTAGE', '2004-01-01', 42.18, 'DEBIT', '3002441161309', 'NOT USED'),
-(127, 13, 'STUDENT', '2004-01-01', 151.32, 'DEBIT', '4156048205412', 'NOT USED'),
-(127, 14, 'REGULAR', '2004-01-01', 189.34, 'CREDIT', '3554368196938', 'NOT USED'),
 (127, 15, 'STUDENT', '2004-01-01', 79.42, 'BANK_DEPOSIT', '3140846474232', 'NOT USED'),
 (127, 16, 'REGULAR', '2004-01-01', 95.02, 'CREDIT', '1462961330265', 'NOT USED'),
 (127, 17, 'STUDENT', '2004-01-01', 197.56, 'BANK_DEPOSIT', '8862133112027', 'NOT USED'),
@@ -5742,33 +5725,18 @@ INSERT INTO ticket (music_event_id, visitor_id, ticketType_type, ticket_purchase
 (128, 9, 'BACKSTAGE', '2004-01-01', 92.98, 'BANK_DEPOSIT', '5916043638672', 'NOT USED'),
 (128, 10, 'REGULAR', '2004-01-01', 165.81, 'DEBIT', '6322376680414', 'NOT USED'),
 (128, 11, 'REGULAR', '2004-01-01', 104.12, 'BANK_DEPOSIT', '3468306959786', 'NOT USED'),
-(128, 12, 'REGULAR', '2004-01-01', 175.61, 'BANK_DEPOSIT', '5025814176081', 'NOT USED'),
-(128, 13, 'REGULAR', '2004-01-01', 184.24, 'DEBIT', '8860067637876', 'NOT USED'),
-(128, 14, 'REGULAR', '2004-01-01', 176.36, 'DEBIT', '1606990288405', 'NOT USED'),
-(128, 15, 'REGULAR', '2004-01-01', 35.45, 'DEBIT', '1027358088817', 'NOT USED'),
-(128, 16, 'BACKSTAGE', '2004-01-01', 23.85, 'DEBIT', '3251473936410', 'NOT USED'),
 (128, 17, 'BACKSTAGE', '2004-01-01', 64.34, 'BANK_DEPOSIT', '2127532269335', 'NOT USED'),
 (128, 18, 'STUDENT', '2004-01-01', 41.00, 'DEBIT', '6594311089600', 'NOT USED'),
 (128, 19, 'REGULAR', '2004-01-01', 60.49, 'CREDIT', '6389748252235', 'NOT USED'),
 (128, 20, 'STUDENT', '2004-01-01', 134.49, 'BANK_DEPOSIT', '1720261523610', 'NOT USED'),
 (129, 1, 'STUDENT', '2004-01-01', 41.90, 'BANK_DEPOSIT', '1443937245912', 'NOT USED'),
 (129, 2, 'STUDENT', '2004-01-01', 83.54, 'CREDIT', '6452909461828', 'NOT USED'),
-(129, 3, 'BACKSTAGE', '2004-01-01', 45.54, 'CREDIT', '3913965186054', 'NOT USED'),
-(129, 4, 'BACKSTAGE', '2004-01-01', 90.93, 'DEBIT', '4024296662786', 'NOT USED'),
-(129, 5, 'STUDENT', '2004-01-01', 33.67, 'BANK_DEPOSIT', '0763293519511', 'NOT USED'),
 (129, 6, 'REGULAR', '2004-01-01', 81.59, 'CREDIT', '0342810277198', 'NOT USED'),
 (129, 7, 'REGULAR', '2004-01-01', 105.32, 'DEBIT', '6142640644467', 'NOT USED'),
 (129, 8, 'STUDENT', '2004-01-01', 154.81, 'CREDIT', '5012392636793', 'NOT USED'),
 (129, 9, 'BACKSTAGE', '2004-01-01', 60.73, 'DEBIT', '2810064203174', 'NOT USED'),
 (129, 10, 'BACKSTAGE', '2004-01-01', 189.80, 'BANK_DEPOSIT', '6426351660764', 'NOT USED'),
 (129, 11, 'BACKSTAGE', '2004-01-01', 145.39, 'CREDIT', '7129466138430', 'NOT USED'),
-(129, 12, 'STUDENT', '2004-01-01', 39.27, 'CREDIT', '4215741009151', 'NOT USED'),
-(129, 13, 'BACKSTAGE', '2004-01-01', 138.27, 'CREDIT', '9265207958160', 'NOT USED'),
-(129, 14, 'STUDENT', '2004-01-01', 192.51, 'DEBIT', '9302017546757', 'NOT USED'),
-(129, 15, 'STUDENT', '2004-01-01', 152.00, 'DEBIT', '1602856310105', 'NOT USED'),
-(129, 16, 'STUDENT', '2004-01-01', 68.95, 'BANK_DEPOSIT', '0248829579035', 'NOT USED'),
-(129, 17, 'STUDENT', '2004-01-01', 149.60, 'BANK_DEPOSIT', '9670137836615', 'NOT USED'),
-(129, 18, 'STUDENT', '2004-01-01', 158.07, 'DEBIT', '0048270005738', 'NOT USED'),
 (129, 19, 'STUDENT', '2004-01-01', 29.97, 'DEBIT', '6797066791082', 'NOT USED'),
 (129, 20, 'STUDENT', '2004-01-01', 123.13, 'CREDIT', '0362790395873', 'NOT USED');
 
