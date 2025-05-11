@@ -57,10 +57,9 @@ CREATE TABLE stage (
 
 DROP TABLE IF EXISTS equipmentUsed;
 CREATE TABLE equipmentUsed (
-	equipmentUsed_id BIGINT NOT NULL AUTO_INCREMENT,
     equipment_id BIGINT NOT NULL,
     stage_id BIGINT NOT NULL,
-    PRIMARY KEY(equipmentUsed_id),
+    PRIMARY KEY(equipment_id, stage_id),
     CONSTRAINT equipment_assigned FOREIGN KEY (equipment_id) REFERENCES equipment(equipment_id),
     CONSTRAINT stage_assigned FOREIGN KEY (stage_id) REFERENCES stage(stage_id)
 );
