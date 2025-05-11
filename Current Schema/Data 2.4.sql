@@ -946,7 +946,58 @@ INSERT INTO art2genre (artist_id, genre_desc) VALUES
 (134, 'Pop'),
 (135, 'EDM'),
 (136, 'Classical'),
-(137, 'Country');
+(137, 'Country'),
+(1, 'Pop'),
+(11, 'Pop'),
+(21, 'Country'),
+(31, 'Folk'),
+(41, 'Jazz'),
+(51, 'Electronic'),
+(61, 'Electronic'),
+(71, 'Blues'),
+(81, 'R&B'),
+(91, 'Country'),
+(101, 'Hip-Hop'),
+(111, 'Electronic'),
+(121, 'Blues'),
+(131, 'EDM');
+
+INSERT INTO art2subgenre (artist_id, subgenre_desc) VALUES 
+(1, 'Pop Punk'),
+(5, 'Indie Rock'),
+(9, 'Blues Rock'),
+(13, 'Post-punk'),
+(17, 'Latin hip-hop'),
+(21, 'Soul'),
+(25, 'Indie Rock'),
+(29, 'Soul'),
+(33, 'Alternative R&B'),
+(37, 'Pop Rap'),
+(41, 'Pop Rock'),
+(45, 'Ambient'),
+(49, 'Vocal jazz'),
+(53, 'J-pop'),
+(57, 'Progressive House'),
+(61, 'Progressive Rock'),
+(65, 'Alternative R&B'),
+(69, 'Funk Pop'),
+(73, 'Pop Rock'),
+(77, 'Indie Rock'),
+(81, 'Latin hip-hop'),
+(85, 'Pop Rap'),
+(89, 'Rap Rock'),
+(93, 'Cowpunk'),
+(97, 'Andalusian classical music'),
+(101, 'Indie Pop'),
+(105, 'African blues'),
+(109, 'African blues'),
+(113, 'Rap Rock'),
+(117, 'R&B'),
+(121, 'Hard Rock'),
+(125, 'Ambient'),
+(129, 'Vocal jazz'),
+(133, 'Bass music'),
+(137, 'Cowpunk');
 
 INSERT INTO band (band_name, band_formation_date, band_website, band_instagram, band_performer_id) VALUES
 ('Coldplay'              , '1996-01-01' ,     'https://www.coldplay.com'            , 'https://www.instagram.com/coldplay'           , 44),
@@ -1000,6 +1051,21 @@ INSERT INTO band2genre (band_id, genre_desc) VALUES
 (22, 'Country'),
 (23, 'Hip-Hop'),
 (24, 'Hip-Hop');
+
+INSERT INTO band2subgenre (band_id, subgenre_desc) VALUES
+(1, 'Vocal jazz'),
+(3, 'Cowpunk'),
+(5, 'Laika'),
+(7, 'Garage Rock'),
+(9, 'Indian classical music'),
+(11, 'Gothic country'),
+(13, 'Funk Pop'),
+(15, 'Andalusian classical music'),
+(17, 'Laika'),
+(19, 'Folk Pop'),
+(21, 'Cowpunk'),
+(23, 'Rap');
+
 
 INSERT INTO members (artist_id,band_id,position) VALUES 
 (46, 1, 'Lead Singer'),
