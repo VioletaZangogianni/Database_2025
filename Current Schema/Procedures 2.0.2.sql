@@ -158,6 +158,42 @@ END;
 //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE checkEAN(ticket_code BIGINT)
+BEGIN
+	DECLARE odd BIGINT;
+    DECLARE even BIGINT;
+    DECLARE errorDigit BIGINT;
+    
+	DROP TEMPORARY TABLE IF EXISTS Digits;
+    CREATE TEMPORARY TABLE Digits AS
+		SELECT num mod POWER(10, 1)  div POWER(10, 0)  AS d0 ,
+               num mod POWER(10, 2)  div POWER(10, 1)  AS d1 ,
+	           num mod POWER(10, 3)  div POWER(10, 2)  AS d2 ,
+	           num mod POWER(10, 4)  div POWER(10, 3)  AS d3 ,
+	           num mod POWER(10, 5)  div POWER(10, 4)  AS d4 ,
+               num mod POWER(10, 6)  div POWER(10, 5)  AS d5 ,
+               num mod POWER(10, 7)  div POWER(10, 6)  AS d6 ,
+               num mod POWER(10, 8)  div POWER(10, 7)  AS d7 ,
+               num mod POWER(10, 9)  div POWER(10, 8)  AS d8 ,
+               num mod POWER(10, 10) div POWER(10, 9)  AS d9 ,
+               num mod POWER(10, 11) div POWER(10, 10) AS d10,
+               num mod POWER(10, 12) div POWER(10, 11) AS d11,
+               num mod POWER(10, 13) div POWER(10, 12) AS d12
+		FROM (SELECT ticket_code AS num) AS Digits;
+        
+        SELECT (d12 + d10 + d8 + d6 + d4 + d2) INTO odd FROM Digits;
+        SELECT (d11 + d9  + d7 + d5 + d3 + d1)  INTO even FROM Digits;
+        
+        SELECT (10 - ((odd + 3 * even) % 10)) % 10 INTO errorDigit FROM Digits;
+        
+        IF errorDigit != (SELECT d0 FROM Digits LIMIT 1) THEN
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Wrong EAN Code';
+        END IF;
+END;
+//
+DELIMITER ;
+
 
 DELIMITER //
 CREATE PROCEDURE findBuyer(ticket BIGINT, OUT result BIGINT)
@@ -207,24 +243,3 @@ BEGIN
 END;
 //
 DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE validateTicket(ticketId BIGINT)
-BEGIN
-	DECLARE stat VARCHAR(20);
-
-	SELECT ticket_status INTO stat FROM ticket
-		WHERE ticket_id = ticketId LIMIT 1;
-        
-	IF stat = 'USED' THEN
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ticket is used';
-	END IF;
-    
-    IF stat = 'FOR SALE' THEN
-		DELETE FROM seller WHERE ticket_id = ticketId;
-		DELETE FROM resaleQueue WHERE ticket_id = ticketId;
-    END IF;
-    
-    UPDATE ticket SET ticket_status = 'USED' WHERE ticket_id = ticketId;
-END;
-//
