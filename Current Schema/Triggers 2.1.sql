@@ -106,10 +106,12 @@ BEGIN
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Too Many Tickets';
 	END IF;
     
-    SET capacity = CEILING(capacity * 0.1);
-	IF (SELECT COUNT(*) + 1 FROM
-		ticket NATURAL JOIN music_event WHERE music_event_id = NEW.music_event_id AND ticketType_type = 'VIP') > capacity THEN
-			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Too Many VIP';
+    IF NEW.ticket_status = 'VIP' THEN
+		SET capacity = CEILING(capacity * 0.1);
+		IF (SELECT COUNT(*) + 1 FROM
+			ticket WHERE music_event_id = NEW.music_event_id AND ticketType_type = 'VIP') > capacity THEN
+				SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Too Many VIP';
+		END IF;
 	END IF;
 END;
 //
