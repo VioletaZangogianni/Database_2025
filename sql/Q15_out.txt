@@ -1,9 +1,9 @@
-+------------------+----------------+-------+
-| Reviewer         | Artist         | Score |
-+------------------+----------------+-------+
-| Pierre Girard    | Sam Smith      |    10 |
-| André Andrieux   | Sam Smith      |    10 |
-| Olivier Rousseau | Sam Smith      |    10 |
-| Erik Johnsen     | Mick Jagger    |    10 |
-| Erik Johnsen     | Keith Richards |    10 |
-+------------------+----------------+-------+
++---------------+-----------+-------+
+| Reviewer      | Artist    | Score |
++---------------+-----------+-------+
+| Rong Wu       | Bono      |    10 |
+| Jun Wu        | Bono      |    10 |
+| Tao Chen      | Bono      |    10 |
+| François Noël | Sam Smith |    10 |
+| Pierre Girard | Sam Smith |    10 |
++---------------+-----------+-------+
