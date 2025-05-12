@@ -15,14 +15,14 @@ WITH fest_ticket AS (SELECT festival_fest_year AS fest_year, festival_name AS fe
 SELECT fest_year AS 'Year', fest_name AS 'Festival',
 	CONCAT(ROUND(SUM(price), 2), '€') AS 'Total Earnings',
     
-    CONCAT(ROUND(SUM(std_price), 2), '€') AS 'Regular ticket Earnings',
-    CONCAT(ROUND(SUM(vip_price), 2), '€') AS 'VIP Earnings',
-    CONCAT(ROUND(SUM(back_price), 2), '€') AS 'Backstage Earnings',
-    CONCAT(ROUND(SUM(student_price), 2), '€') AS 'Student ticket Earnings',
+	CONCAT(ROUND(SUM(std_price), 2), '€') AS 'Regular ticket Earnings',
+	CONCAT(ROUND(SUM(vip_price), 2), '€') AS 'VIP Earnings',
+	CONCAT(ROUND(SUM(back_price), 2), '€') AS 'Backstage Earnings',
+	CONCAT(ROUND(SUM(student_price), 2), '€') AS 'Student ticket Earnings',
     
-    CONCAT(ROUND(SUM(debit_price), 2), '€') AS 'Debit Earnings',
-    CONCAT(ROUND(SUM(credit_price), 2), '€') AS 'Credit Earnings',
-    CONCAT(ROUND(SUM(bank_price), 2), '€') AS 'Bank Deposit Earnings'
+	CONCAT(ROUND(SUM(debit_price), 2), '€') AS 'Debit Earnings',
+	CONCAT(ROUND(SUM(credit_price), 2), '€') AS 'Credit Earnings',
+	CONCAT(ROUND(SUM(bank_price), 2), '€') AS 'Bank Deposit Earnings'
 FROM fest_ticket_price
 GROUP BY fest_year, fest_name
 ORDER BY fest_year ASC;
