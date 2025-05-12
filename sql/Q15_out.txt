@@ -1,6 +1,9 @@
-Reviewer	Artist		Score
-Timothy McGee	Taylor York	10
-Abby Sciuto	Mick Jagger	10
-Abby Sciuto	Keith Richards	10
-Abby Sciuto	Charlie Watts	10
-Abby Sciuto	Ronnie Wood	10
++------------------+----------------+-------+
+| Reviewer         | Artist         | Score |
++------------------+----------------+-------+
+| Pierre Girard    | Sam Smith      |    10 |
+| André Andrieux   | Sam Smith      |    10 |
+| Olivier Rousseau | Sam Smith      |    10 |
+| Erik Johnsen     | Mick Jagger    |    10 |
+| Erik Johnsen     | Keith Richards |    10 |
++------------------+----------------+-------+

@@ -1,13 +1,17 @@
-id	Name			wasThisYear
-12	Sam Smith		NO
-113	David Bryan		YES
-47	Jonny Buckland		YES
-124	The Edge		NO
-64	Jamie Cook		NO
-66	Matt Helders		NO
-112	Tico Torres		NO
-44	Giannis Ploutarhos	NO
-27	Sakis Rouvas		NO
-55	James Valentine		NO
-70	Lindsey Buckingham	NO
-109	Nathan Followill	YES
++-----+--------------------+-------------+
+| id  | Name               | wasThisYear |
++-----+--------------------+-------------+
+|  12 | Sam Smith          | NO          |
+| 113 | David Bryan        | YES         |
+|  47 | Jonny Buckland     | YES         |
+| 124 | The Edge           | NO          |
+|  64 | Jamie Cook         | NO          |
+|  66 | Matt Helders       | NO          |
+| 112 | Tico Torres        | NO          |
+|   1 | Beyoncé            | NO          |
+|  44 | Giannis Ploutarhos | NO          |
+|  27 | Sakis Rouvas       | NO          |
+|  55 | James Valentine    | NO          |
+|  70 | Lindsey Buckingham | NO          |
+| 109 | Nathan Followill   | YES         |
++-----+--------------------+-------------+

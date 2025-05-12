@@ -1,4 +1,7 @@
-artist_id	artist_name	fest_year	warmups
-123		Bono		2020		3
-105		Bryan Yoder	2024		3
-103		Drew Brown	2027		3
++-----+-------------+------+---------+
+| ID  | Name        | Year | warmups |
++-----+-------------+------+---------+
+| 123 | Bono        | 2020 |       3 |
+| 105 | Bryan Yoder | 2024 |       3 |
+| 103 | Drew Brown  | 2027 |       3 |
++-----+-------------+------+---------+

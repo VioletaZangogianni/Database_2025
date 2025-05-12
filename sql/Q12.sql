@@ -6,19 +6,15 @@ WITH date_cap AS (SELECT music_event_date AS event_date, SUM(stage_capacity) AS 
 	date_all AS (SELECT music_event_date AS event_date, staff_id, role_staff_desc
 		FROM staff NATURAL JOIN worksIn NATURAL JOIN music_event
         WHERE festival_id = @f_id),
-    date_tech AS (SELECT event_date, COUNT(staff_id) AS tech
-		FROM date_all
-        WHERE role_staff_desc = 'Technical'
-        GROUP BY event_date),
-	date_sec AS (SELECT event_date, COUNT(staff_id) AS sec
-		FROM date_all
-        WHERE role_staff_desc = 'Security'
-        GROUP BY event_date),
-	date_sup AS (SELECT event_date, COUNT(staff_id) AS sup
-		FROM date_all
-        WHERE role_staff_desc = 'Support'
-        GROUP BY event_date),
-	date_act AS (SELECT * FROM date_tech NATURAL JOIN date_sec NATURAL JOIN date_sup),
+	date_staff_type AS (SELECT event_date,
+        CASE WHEN role_staff_desc = 'Technical' THEN 1 ELSE 0 END AS tech_all,
+        CASE WHEN role_staff_desc = 'Security' THEN 1 ELSE 0 END AS sec_all,
+        CASE WHEN role_staff_desc = 'Support' THEN 1 ELSE 0 END AS sup_all
+        FROM date_all),
+	date_act AS (SELECT event_date, COUNT(tech_all) AS tech,
+		COUNT(sec_all) AS sec, COUNT(sup_all) AS sup
+    FROM date_staff_type
+    GROUP BY event_date),
 	all_staff AS (SELECT event_date, CEILING(capacity/20) AS sec_needs,
 			CEILING(capacity/50) AS sup_needs, sec, sup, tech
         FROM date_cap NATURAL JOIN date_act)
