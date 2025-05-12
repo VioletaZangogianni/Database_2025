@@ -1,4 +1,4 @@
-SET @visitor_id = 14;
+SET @visitor_id = 201;
 WITH rev_event AS (SELECT visitor_id, music_event_id,
 		(review_interpretation + review_sound_and_lighting + review_stage_presence + review_organization + review_overall_impression) AS score
 	FROM review NATURAL JOIN performance NATURAL JOIN music_event
