@@ -1,4 +1,4 @@
-SET @visitor_id = 2;
+SET @visitor_id = 201;
 WITH rev_event AS (SELECT visitor_id, music_event_id,
 		(review_interpretation + review_sound_and_lighting + review_stage_presence + review_organization + review_overall_impression) AS score
 	FROM review FORCE INDEX(review_visitor_idx) NATURAL JOIN performance FORCE INDEX(performer_idx) NATURAL JOIN music_event FORCE INDEX(festival_idx)
