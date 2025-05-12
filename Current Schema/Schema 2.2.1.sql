@@ -292,7 +292,7 @@ CREATE TABLE review (
   review_stage_presence SMALLINT NOT NULL,
   review_organization SMALLINT NOT NULL,
   review_overall_impression SMALLINT NOT NULL,
-  PRIMARY KEY (visotr_id,performance_id),
+  PRIMARY KEY (visitor_id,performance_id),
   CONSTRAINT visitor_rating FOREIGN KEY (visitor_id) REFERENCES visitor(visitor_id),
   CONSTRAINT performance_rated FOREIGN KEY (performance_id) REFERENCES performance(performance_id),
   CONSTRAINT interpretation_score CHECK (review_interpretation BETWEEN 1 AND 5),
