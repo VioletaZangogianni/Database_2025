@@ -285,7 +285,6 @@ CREATE TABLE ticket (
   
 DROP TABLE IF EXISTS review;
 CREATE TABLE review (
-  review_id BIGINT NOT NULL AUTO_INCREMENT,
   visitor_id BIGINT NOT NULL,
   performance_id BIGINT NOT NULL,
   review_interpretation SMALLINT NOT NULL,
@@ -293,7 +292,7 @@ CREATE TABLE review (
   review_stage_presence SMALLINT NOT NULL,
   review_organization SMALLINT NOT NULL,
   review_overall_impression SMALLINT NOT NULL,
-  PRIMARY KEY (review_id),
+  PRIMARY KEY (visotr_id,performance_id),
   CONSTRAINT visitor_rating FOREIGN KEY (visitor_id) REFERENCES visitor(visitor_id),
   CONSTRAINT performance_rated FOREIGN KEY (performance_id) REFERENCES performance(performance_id),
   CONSTRAINT interpretation_score CHECK (review_interpretation BETWEEN 1 AND 5),
