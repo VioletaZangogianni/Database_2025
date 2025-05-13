@@ -45,7 +45,7 @@ while True:
             file = '..\\sql\\Q' + str(i//10) + str(i%10) + '.sql'
 
             with open(file) as f:
-                comms = f.read().split(';')
+                comms = f.read().strip().split(';')
                 for x in comms: cursor.execute(x, None, True)
             more = True
             while (more):
@@ -80,9 +80,9 @@ while True:
                 break
     else:
         file = '..\\sql\\Q' + str(query//10) + str(query%10) + '.sql'
-        with open(file) as f:
+        with open(file, 'r', encoding='utf-8') as f:
             
-            comms = f.read().split(';')
+            comms = f.read().strip().split(';')
             if query == 2:
                 year = str(int(input("Which year should we check? ")))
                 if year != '0':
@@ -127,7 +127,8 @@ while True:
                     cursor.execute('SET @f_id := ' + id)
                 cursor.execute(comms[1])
             else:
-                for i in comms: cursor.execute(i, None, True)
+                for x in comms:
+                    cursor.execute(x, None, True)
     
     
     more = True
