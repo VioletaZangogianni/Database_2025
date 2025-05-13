@@ -80,7 +80,7 @@
 
 
 ## Διάγραμμα ER
-![image](https://github.com/user-attachments/assets/d487a3f9-d2e8-41c3-b1a3-c8c6b203e333)
+![442835768-d487a3f9-d2e8-41c3-b1a3-c8c6b203e333](https://github.com/user-attachments/assets/6163c910-c3d2-4f91-a98b-1da68397a72f)
 
 ![image](https://github.com/user-attachments/assets/f6c3b52c-0836-4b7b-9283-93251ac41bdc)
 
